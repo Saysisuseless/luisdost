@@ -3,25 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DOST-SEI UGS Timed Mock Exam</title>
+<title>Full Mock Exam, 120 items, 4 hours</title>
 <style>
 :root{--bg:#f6f7f4;--card:#fff;--ink:#1c2321;--mute:#5d6a66;--line:#d9dfdb;--acc:#1f5f4a;--accbg:#e3f1ea;--ok:#1d7a3e;--okbg:#e2f4e8;--bad:#b3261e;--badbg:#fbe7e5;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#131816;--card:#1c2320;--ink:#e8ede9;--mute:#9aa8a2;--line:#2f3a36;--acc:#6fcfa5;--accbg:#1f3a2f;--ok:#6fd48f;--okbg:#1b3524;--bad:#ff8b82;--badbg:#3d2220}}
 :root[data-theme="dark"]{--bg:#131816;--card:#1c2320;--ink:#e8ede9;--mute:#9aa8a2;--line:#2f3a36;--acc:#6fcfa5;--accbg:#1f3a2f;--ok:#6fd48f;--okbg:#1b3524;--bad:#ff8b82;--badbg:#3d2220}
 *{box-sizing:border-box}
-html{scroll-padding-top:70px}
+html{scroll-padding-top:110px}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Georgia,"Times New Roman",serif}
 main{max-width:720px;margin:0 auto;padding:16px 16px 90px}
 h1{font-size:1.5rem;margin:8px 0 4px}
 .sub,.rules{color:var(--mute);font-family:system-ui,sans-serif;font-size:.92rem}
 .rules li{margin:4px 0}
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-family:system-ui,sans-serif;font-size:.9rem}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);font-family:system-ui,sans-serif;font-size:.9rem}
+.bar .r1{display:flex;gap:12px;align-items:center}
 .bar b{font-size:1.3rem;font-variant-numeric:tabular-nums}
 .bar.warn b{color:var(--bad)}
-.prog{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
-.prog i{display:block;height:100%;width:0;background:var(--acc);transition:width .2s}
-h2{font-size:1.15rem;margin:22px 0 8px;padding-bottom:4px;border-bottom:2px solid var(--acc)}
+.tabs{display:flex;gap:6px;margin-top:8px;overflow-x:auto}
+.tabs button{flex:1;min-width:84px;padding:8px 6px;font:600 .8rem system-ui,sans-serif;background:transparent;color:var(--acc);border:1px solid var(--acc)}
+.tabs button.on{background:var(--acc);color:#fff}
+:root:not([data-theme="light"]) .tabs button.on{color:#0b1a14}
+h2{font-size:1.1rem;margin:18px 0 8px;padding-bottom:4px;border-bottom:2px solid var(--acc)}
 .q{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0}
 .q p{margin:0 0 8px}
 .q b.n{color:var(--acc);margin-right:4px}
@@ -42,144 +45,155 @@ button.alt{background:transparent;color:var(--acc);border:1px solid var(--acc)}
 .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 textarea{width:100%;font:.9rem monospace;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);margin-top:8px}
 #msg{color:var(--bad);font-family:system-ui,sans-serif;margin-top:8px;min-height:1.2em}
+.soon{color:var(--mute);font-family:system-ui,sans-serif;padding:20px 4px}
 .refs{font-family:system-ui,sans-serif;font-size:.8rem;color:var(--mute);margin-top:24px}
 </style>
 </head>
 <body>
 <main id="app"></main>
 <script>
-var S=["Creative Reasoning and Language and Literature","Science","Mathematics"];
-var T=[45,65,70];
+var SEC=[{n:"APRS",t:"Aptitude and Reasoning Skills",s:1,e:20,pace:40},{n:"LANG",t:"Language Skills",s:21,e:40,pace:40},{n:"SCI",t:"General Sciences",s:41,e:80,pace:80},{n:"MATH",t:"Mathematics",s:81,e:120,pace:80}];
 var Q=[
-[0,"Mechanical","A 10 N force pushes a box 4 m along the floor, in the direction of the force. How much work is done?",["14 J","40 J","2.5 J","400 J"],1,"Work = force × distance = 10 × 4 = 40 J."],
-[0,"Mechanical","A person pushes a wall with 200 N, but the wall does not move. How much work is done on the wall?",["0 J","200 J","20 J","Cannot be determined"],0,"Work needs movement. No displacement means zero work, however hard you push."],
-[0,"Mechanical","In a sealed hydraulic system, a 2 cm² piston is pushed with 10 N. What force appears on a 20 cm² piston?",["1 N","20 N","100 N","200 N"],2,"Pressure is the same everywhere. The big piston has 10 times the area, so it gives 10 times the force: 100 N."],
-[0,"Mechanical","A ball rolls down a smooth hill and up a second hill. Ignoring friction, how high does it rise compared with its starting height?",["Higher","Lower","Cannot be determined","The same height"],3,"Energy is conserved. All the potential energy comes back, so it reaches the same height."],
-[0,"Spatial","How many edges does a pentagonal prism have?",["10","15","12","20"],1,"Two pentagons have 5 + 5 = 10 edges. Five vertical edges join them. Total 15."],
-[0,"Spatial","An arrow pointing right is reflected in a horizontal mirror line. Which way does the image point?",["Left","Up","Right","Down"],2,"A horizontal mirror flips up and down only. An arrow pointing sideways stays pointing right."],
-[0,"Spatial","Which arrangement of six squares CANNOT be folded into a cube?",["A row of four, one square above the 2nd and one below the 3rd","A row of four, one square above the 1st and one below the 4th","A 2 × 3 block of squares","A row of four, one square above and one below the 2nd"],2,"A 2 × 3 block has squares that overlap when folded. Rows of four with one square above and one below (any positions) do fold into a cube."],
-[0,"Spatial","A solid has a bottom layer of 3 × 3 cubes and a top layer of a 2 × 2 block resting on it. How many cubes in total?",["12","15","18","13"],3,"Bottom layer 9 + top layer 4 = 13."],
-[0,"Verbal","PILOT : AIRPLANE :: CAPTAIN : ?",["crew","sea","ship","port"],2,"A pilot controls an airplane. A captain controls a ship."],
-[0,"Verbal","ACCELERATE : SPEED UP :: DECELERATE : ?",["stop","turn","drive","slow down"],3,"Same meaning pairs: accelerate means speed up, decelerate means slow down."],
-[0,"Verbal","Which one does not belong?",["oxygen","nitrogen","helium","water"],3,"Oxygen, nitrogen, and helium are elements. Water is a compound."],
-[0,"Verbal","If it rains, the match is cancelled. The match was not cancelled. What can we conclude?",["It rained","It will rain later","It did not rain","Nothing can be concluded"],2,"If rain always causes cancellation, no cancellation means no rain."],
-[0,"Language","Which underlined part has an error? “Despite of [A] the heavy rain [B], the game [C] continued [D].”",["Despite of","the heavy rain","the game","continued"],0,"It is “despite” (no “of”) or “in spite of”."],
-[0,"Language","She is one of the students who ___ always on time.",["is","are","was","be"],1,"“Who” refers to “students” (plural), so the verb is are."],
-[0,"Language","The new rule is redundant. Redundant means:",["unnecessary","dangerous","strict","fair"],0,"Redundant means more than needed, or repeating something already there."],
-[0,"Language","Rice terraces in the Cordillera were carved by hand centuries ago. Water flows from mountain springs through channels, from one level to the next. Without careful community cooperation to maintain the channels, the terraces would dry up. What keeps the terraces alive?",["Heavy machinery","Modern fertilizers","Seasonal tourists","Community cooperation to maintain the water channels"],3,"The last sentence says the terraces dry up without community cooperation on the channels."],
-[1,"Biology","Which gas is released as a by-product of photosynthesis?",["Carbon dioxide","Nitrogen","Oxygen","Hydrogen"],2,"Plants take in CO₂ and water and release oxygen."],
-[1,"Biology","A homozygous tall plant (TT) is crossed with a homozygous short plant (tt). The F1 offspring are:",["All short","All tall","Half tall, half short","3 tall : 1 short"],1,"All offspring are Tt. Tall is dominant, so all are tall."],
-[1,"Biology","Which structure controls what enters and leaves a cell?",["Cell membrane","Cell wall","Nucleus","Vacuole"],0,"The cell membrane is selectively permeable. The wall only gives support."],
-[1,"Biology","Which statement best describes natural selection?",["Organisms choose which traits to pass on","All organisms in a population survive equally","Traits acquired during life are inherited","Individuals with traits better suited to their environment survive and reproduce more"],3,"Better-adapted individuals survive and reproduce more, so helpful traits become common."],
-[1,"Chemistry","How many grams are in 0.5 mol of NaOH (molar mass 40 g/mol)?",["20 g","80 g","0.0125 g","40 g"],0,"mass = moles × molar mass = 0.5 × 40 = 20 g."],
-[1,"Chemistry","Which is a chemical change?",["Ice melting","Sugar dissolving in water","Iron rusting","Water boiling"],2,"Rusting makes a new substance (iron oxide). The others only change state or mix."],
-[1,"Chemistry","An atom has atomic number 15 and mass number 31. How many neutrons does it have?",["15","31","46","16"],3,"Neutrons = mass number − atomic number = 31 − 15 = 16."],
-[1,"Chemistry","A 5 L gas at 300 K is heated to 600 K at constant pressure. What is its new volume?",["10 L","5 L","2.5 L","20 L"],0,"Charles’s law: volume is proportional to Kelvin temperature. The temperature doubles, so the volume doubles."],
-[1,"Earth Science","Which type of plate boundary built the Himalayas?",["Divergent","Transform","Convergent","Hotspot"],2,"Two continental plates collided (convergent), pushing the crust up into mountains."],
-[1,"Earth Science","Which layer of the Earth is liquid?",["Inner core","Outer core","Mantle","Crust"],1,"The outer core is liquid metal. The inner core is solid because of great pressure."],
-[1,"Earth Science","Which of these is a renewable energy source?",["Coal","Natural gas","Oil","Geothermal"],3,"Geothermal heat from the Earth is continuously available. Coal, gas, and oil are fossil fuels."],
-[1,"Earth Science","Typhoons in the Philippines form over:",["Cold polar seas","Deserts","High mountains","Warm tropical ocean water"],3,"Typhoons get their energy from warm ocean water, usually above about 26 °C."],
-[1,"Physics","A 1500 kg car accelerates at 2 m/s². What is the net force?",["750 N","3000 N","1500 N","300 N"],1,"F = ma = 1500 × 2 = 3000 N."],
-[1,"Physics","A 3 kg object moves at 4 m/s. What is its momentum?",["7 kg·m/s","1.3 kg·m/s","48 kg·m/s","12 kg·m/s"],3,"p = mv = 3 × 4 = 12 kg·m/s."],
-[1,"Physics","A 4 kg box is lifted 5 m. What is its gain in potential energy? (g = 10 m/s²)",["200 J","20 J","9 J","2000 J"],0,"PE = mgh = 4 × 10 × 5 = 200 J."],
-[1,"Physics","What happens to the pitch of a sound when its frequency increases?",["Lower","Same","Quieter","Higher"],3,"Higher frequency means higher pitch. Loudness depends on amplitude."],
-[1,"Physics","Two 4 Ω resistors are in series with a 16 V battery. What is the current?",["8 A","4 A","2 A","0.5 A"],2,"Series resistance = 4 + 4 = 8 Ω. I = V ÷ R = 16 ÷ 8 = 2 A."],
-[1,"Space Science","Which planet has the shortest year?",["Mercury","Venus","Earth","Mars"],0,"Mercury is closest to the Sun, so it has the shortest orbit and the shortest year."],
-[1,"Space Science","What causes the phases of the Moon?",["Earth’s shadow falling on the Moon","Clouds blocking the Moon","We see different amounts of the Moon’s sunlit half as it orbits Earth","The Moon’s changing size"],2,"Half the Moon is always lit. As it orbits, we see more or less of that lit half."],
-[1,"Space Science","The Sun produces its energy mainly by:",["Burning coal","Nuclear fusion","Nuclear fission","Chemical combustion"],1,"In the Sun’s core, hydrogen fuses into helium and releases energy."],
-[2,"Algebra","Solve: 5x − 3 = 2x + 12",["−5","15","3","5"],3,"Subtract 2x: 3x − 3 = 12. Add 3: 3x = 15. So x = 5."],
-[2,"Algebra","Simplify: (x²y³)² ÷ (xy)",["x³y⁵","x⁴y⁶","x³y⁴","xy³"],0,"(x²y³)² = x⁴y⁶. Dividing by xy subtracts exponents: x³y⁵."],
-[2,"Algebra","For what value of k does x² − 8x + k = 0 have two equal roots?",["8","64","16","−16"],2,"Equal roots need b² − 4ac = 0: 64 − 4k = 0, so k = 16."],
-[2,"Algebra","Solve: log₂ (x + 3) = 4",["13","19","5","1"],0,"x + 3 = 2⁴ = 16, so x = 13."],
-[2,"Algebra","A car goes 240 km at 60 km/h and returns at 80 km/h. What is its average speed for the round trip?",["70 km/h","65 km/h","68.6 km/h","72 km/h"],2,"Total distance 480 km. Time = 240/60 + 240/80 = 4 + 3 = 7 h. Average = 480 ÷ 7 ≈ 68.6 km/h. Never just average the two speeds."],
-[2,"Geometry","A square has a perimeter of 36 cm. What is the length of its diagonal?",["9 cm","18 cm","81 cm","9√2 cm"],3,"Side = 36 ÷ 4 = 9. Diagonal = side × √2 = 9√2."],
-[2,"Geometry","In triangle ABC, ∠A = 50° and ∠B = 60°. What is the exterior angle at C?",["70°","120°","130°","110°"],3,"∠C = 180 − 110 = 70°. The exterior angle is 180 − 70 = 110° (also A + B)."],
-[2,"Geometry","What is the volume of a sphere of radius 3? (V = 4/3 πr³)",["12π","108π","36π","27π"],2,"V = 4/3 × π × 27 = 36π."],
-[2,"Geometry","A chord 8 cm long is 3 cm from the center of a circle. What is the radius?",["7 cm","5 cm","4 cm","11 cm"],1,"Half the chord is 4. r² = 3² + 4² = 25, so r = 5."],
-[2,"Trigonometry","What is sin 30° + cos 60° + tan 45°?",["2","1","3/2","3"],0,"1/2 + 1/2 + 1 = 2."],
-[2,"Trigonometry","A taut kite string 100 m long makes a 30° angle with the ground. How high is the kite?",["25 m","50 m","50√3 m","100 m"],1,"Height = 100 × sin 30° = 100 × 1/2 = 50 m."],
-[2,"Trigonometry","Convert 180° to radians.",["π/2","π/4","2π","π"],3,"180° = π radians. Multiply degrees by π/180."],
-[2,"Statistics","The mean of 6 numbers is 10. One number, 4, is replaced by 16. What is the new mean?",["11","10","12","13"],2,"Old sum = 60. Replacing 4 with 16 adds 12, so the sum is 72. 72 ÷ 6 = 12."],
-[2,"Probability","Two fair coins are tossed. What is the probability of at least one head?",["1/4","3/4","1/2","1"],1,"Only TT has no head. P = 1 − 1/4 = 3/4."],
-[2,"Counting","How many different arrangements are there of the letters of BANANA?",["720","120","30","60"],3,"6 letters with A repeated 3 times and N twice: 6! ÷ (3! × 2!) = 720 ÷ 12 = 60."],
-[2,"Statistics","Every score in a data set is increased by 5. What happens to the standard deviation?",["Increases by 5","Doubles","Stays the same","Becomes 0"],2,"Adding the same number shifts the data but does not change the spread."],
-[2,"Calculus","Differentiate y = 4x³ − 5x² + 2.",["12x² − 10x","12x² − 5x","4x² − 10x","12x³ − 10x²"],0,"Bring down exponents and subtract 1: 4·3x² = 12x², 5·2x = 10x, and the constant gives 0."],
-[2,"Calculus","Evaluate: lim (x → 0) (sin 3x)/x",["0","1","3","1/3"],2,"Write it as 3 × (sin 3x)/(3x). The fraction goes to 1, so the limit is 3."],
-[2,"Calculus","Evaluate: ∫₀³ x² dx",["27","9","3","6"],1,"Antiderivative is x³/3. At 3: 27/3 = 9. At 0: 0. Answer 9."],
-[2,"Calculus","What is the slope of the tangent to y = x² − 4x at x = 3?",["5","−1","6","2"],3,"y′ = 2x − 4. At x = 3: 6 − 4 = 2."]
+[0,"Verbal","Which one does not belong?",["Liter","Kilometer","Meter","Centimeter"],0,"Kilometer, meter, and centimeter measure length. A liter measures volume."],
+[0,"Verbal","Which one does not belong?",["Sparrow","Eagle","Pigeon","Bat"],3,"Sparrow, eagle, and pigeon are birds. A bat is a mammal."],
+[0,"Verbal","THERMOMETER : TEMPERATURE :: BAROMETER : ?",["Weather","Pressure","Wind","Height"],1,"A thermometer measures temperature. A barometer measures air pressure."],
+[0,"Verbal","BEE : SWARM :: WOLF : ?",["Herd","Flock","Pack","School"],2,"A group of bees is a swarm. A group of wolves is a pack."],
+[0,"Verbal","Statement: “Buy Brand X toothpaste; it prevents cavities.” Assumption I: People want to prevent cavities. Assumption II: Brand X is the cheapest. Which is implicit?",["Only I","Only II","Both I and II","Neither I nor II"],0,"The advertisement only makes sense if people care about avoiding cavities (I). Nothing in it suggests Brand X is cheapest."],
+[0,"Verbal","If A > B, B > C, and D < C, which is the smallest?",["A","B","C","D"],3,"A > B > C, and D is below C, so D is the smallest."],
+[0,"Mechanical","A 5 kg ball and a 1 kg ball are dropped from the same height (no air resistance). Which hits the ground first?",["The 5 kg ball","The 1 kg ball","Both at the same time","Cannot be determined"],2,"Without air resistance, all objects fall at the same rate regardless of mass."],
+[0,"Mechanical","In a wheelbarrow, moving the load closer to the wheel makes lifting it:",["Harder","Easier","No different","Impossible"],1,"The wheel is the pivot. A shorter load arm means less effort force is needed."],
+[0,"Mechanical","A driver gear with 30 teeth turns at 60 rpm and meshes with a 15-tooth gear. How fast does the smaller gear turn?",["30 rpm","60 rpm","240 rpm","120 rpm"],3,"Teeth × rpm is equal for both gears: 30 × 60 = 15 × rpm, so rpm = 120. The smaller gear spins faster."],
+[0,"Mechanical","A train 120 m long passes a pole in 6 s. What is its speed?",["20 m/s","10 m/s","30 m/s","40 m/s"],0,"The whole length passes the pole: speed = 120 ÷ 6 = 20 m/s."],
+[0,"Mechanical","Which of these is a first-class lever (pivot between the effort and the load)?",["Wheelbarrow","Fishing rod","Seesaw","Tweezers"],2,"A seesaw has its pivot in the middle. A wheelbarrow is second class, and a fishing rod and tweezers are third class."],
+[0,"Mechanical","A swimmer is at depths of 2 m, 8 m, 5 m, and 3 m in turn. At which depth is the water pressure greatest?",["2 m","8 m","5 m","3 m"],1,"Water pressure increases with depth, so the deepest point (8 m) has the greatest pressure."],
+[0,"Spatial","Complete the series: 2, 3, 5, 8, 12, 17, ?",["21","22","24","23"],3,"Differences are 1, 2, 3, 4, 5, so the next is +6: 17 + 6 = 23."],
+[0,"Spatial","Complete the series: A, C, F, J, O, ?",["U","T","S","V"],0,"Letter positions are 1, 3, 6, 10, 15. The gaps grow by 1, so the next is +6: 21 = U."],
+[0,"Spatial","On a standard die, opposite faces add up to 7. If 2 is on top, what is on the bottom?",["4","6","5","7"],2,"7 − 2 = 5."],
+[0,"Spatial","The letter “b” is reflected in a vertical mirror (left-right flip). What does it look like?",["p","d","q","b"],1,"A left-right flip turns b into d. (An up-down flip would give p.)"],
+[0,"Spatial","How many squares of all sizes are in a 3 × 3 grid of small squares?",["14","9","16","18"],0,"There are 9 small squares, 4 two-by-two squares, and 1 three-by-three square: 9 + 4 + 1 = 14."],
+[0,"Logic","In a race, Ana finished before Ben, Ben before Cara, and Dan after Cara. Who finished third?",["Ana","Ben","Dan","Cara"],3,"The order is Ana, Ben, Cara, Dan. Third place is Cara."],
+[0,"Logic","What is the smaller angle between the hands of a clock at 3:15?",["0°","15°","7.5°","22.5°"],2,"At 3:15 the minute hand is at 90°. The hour hand has moved a quarter of the way from 3 to 4: 90° + 7.5° = 97.5°. The difference is 7.5°."],
+[0,"Logic","If 3 machines make 3 parts in 3 minutes, how long do 100 machines take to make 100 parts?",["1 minute","3 minutes","100 minutes","33 minutes"],1,"Each machine makes 1 part in 3 minutes, so 100 machines make 100 parts in 3 minutes."],
+[1,"Grammar","She is allergic ___ peanuts.",["to","with","at","of"],0,"“Allergic” takes the preposition to."],
+[1,"Grammar","By next June, I ___ all my requirements.",["will complete","will have completed","have completed","completed"],1,"Future perfect (will have + past participle) shows an action finished before a future time."],
+[1,"Grammar","If I ___ you, I would apologize.",["am","was","were","be"],2,"In an unreal condition (“if I were you”) the correct form is were."],
+[1,"Grammar","Neither the manager nor the employees ___ aware of the change.",["were","was","is","has been"],0,"With neither…nor, the verb agrees with the nearer noun: employees (plural), so were."],
+[1,"Grammar","The book, together with its sequels, ___ on sale.",["are","were","is","have been"],2,"“Together with…” does not change the subject. The subject is “book” (singular), so is."],
+[1,"Grammar","Which underlined part has an error? “Between you and I [A], the exam [B] was easy [C] enough [D].”",["Between you and I","the exam","was easy","enough"],0,"After a preposition, use the object form: between you and me."],
+[1,"Grammar","She likes hiking, swimming, and ___.",["to cycle","she cycles","cycled","cycling"],3,"Items in a list must be parallel. Hiking and swimming are -ing forms, so use cycling."],
+[1,"Grammar","Which sentence is punctuated correctly?",["I bought apples, oranges and, bananas.","I bought apples, oranges, and bananas.","I bought, apples oranges, and bananas.","I bought apples oranges, and bananas."],1,"Items in a series are separated by commas, with no stray commas inside the list. Only B is correct."],
+[1,"Vocabulary","PRUDENT means:",["reckless","careful","generous","lazy"],1,"Prudent means careful and sensible. Reckless is the opposite."],
+[1,"Vocabulary","BENIGN means:",["harmful","bitter","harmless","ancient"],2,"Benign means gentle or harmless."],
+[1,"Vocabulary","VERBOSE means:",["wordy","silent","rude","brief"],0,"Verbose means using more words than needed."],
+[1,"Vocabulary","Choose the opposite of SCARCE.",["rare","tiny","costly","abundant"],3,"Scarce means hard to find. The opposite is abundant."],
+[1,"Vocabulary","Choose the opposite of CANDID.",["frank","honest","evasive","kind"],2,"Candid means frank and open. The opposite is evasive (avoiding a direct answer)."],
+[1,"Vocabulary","Choose the opposite of EPHEMERAL.",["brief","fleeting","fragile","lasting"],3,"Ephemeral means lasting a very short time. The opposite is lasting."],
+[1,"Context","The scientist’s results were so ___ that other researchers could not reproduce them.",["robust","erratic","consistent","precise"],1,"If results cannot be reproduced, they were unpredictable and inconsistent: erratic."],
+[1,"Context","Although the instructions seemed ___, most students followed them easily.",["clear","simple","complicated","short"],2,"“Although” signals a contrast with “followed easily,” so the missing word is negative: complicated."],
+[1,"Reading","Coral reefs cover less than one percent of the ocean floor, yet they support about a quarter of all marine species. Warming seas cause corals to expel the algae that feed them, turning them white and often killing them. Protecting reefs therefore means reducing the pollution that warms the planet. What is the main idea?",["Reefs cover most of the ocean floor","Reefs support much marine life and are threatened by warming, so reducing warming helps protect them","Corals prefer cold water","Algae are harmful to corals"],1,"The main idea covers the whole passage: reefs matter, warming harms them, so cutting warming pollution helps."],
+[1,"Reading","Using the coral passage: why do bleached corals often die?",["They are eaten by fish","They get too little sunlight","They lose the algae that feed them","They grow too fast"],2,"The passage says warming makes corals expel the algae that feed them, which often kills them."],
+[1,"Reading","The jeepney, born from leftover military jeeps after World War II, became the symbol of Philippine public transport. Drivers decorate them with colorful art and slogans, so every vehicle looks unique. Modernization programs aim to replace older units with cleaner models, a change that worries some drivers about their livelihood. Why are some drivers worried?",["Jeepney decoration will be banned","It may threaten their livelihood","Fuel costs will fall","Passengers dislike colorful art"],1,"The passage says modernization worries some drivers about their livelihood."],
+[1,"Reading","Using the jeepney passage: jeepneys originated from:",["Imported buses","Tricycles","Modern electric vehicles","Leftover military jeeps"],3,"The first sentence says they came from leftover military jeeps after World War II."]
+,
+[2,"Earth Science","Which rock is most resistant to both chemical and mechanical weathering?",["Quartzite","Shale","Limestone","Marble"],0,"Quartzite is made of tightly fused quartz, which is very hard and chemically stable."],
+[2,"Earth Science","Which energy source does NOT originally come from the Sun?",["Wind","Hydroelectric","Biomass","Geothermal"],3,"Geothermal energy comes from heat inside the Earth. Wind, rain (hydro), and plants all depend on the Sun."],
+[2,"Earth Science","Which statement about P-waves is true?",["They move only through solids","They are slower than S-waves","They can travel through liquids","They shake the ground side to side"],2,"P-waves are compressional, faster than S-waves, and travel through solids and liquids."],
+[2,"Earth Science","The partly molten layer on which the tectonic plates move is the:",["Lithosphere","Asthenosphere","Hydrosphere","Outer core"],1,"The asthenosphere is hot and plastic, so the rigid lithosphere plates can slide over it."],
+[2,"Earth Science","Iceland has frequent volcanic activity mainly because it sits on a:",["Subduction zone","Desert","Transform fault only","Mid-ocean ridge (divergent boundary)"],3,"Iceland lies on the Mid-Atlantic Ridge, where plates move apart and magma rises."],
+[2,"Earth Science","Which two gases are most associated with human-caused climate change?",["Carbon dioxide and methane","Oxygen and nitrogen","Helium and argon","Ozone and neon"],0,"CO₂ and methane are greenhouse gases that trap heat and have increased because of human activity."],
+[2,"Earth Science","Earth’s atmosphere is divided into layers based on:",["Gas content","How temperature changes with height","Humidity","Cloud cover"],1,"Troposphere, stratosphere, mesosphere, and thermosphere are defined by temperature trends."],
+[2,"Earth Science","In undisturbed rock layers exposed by a river, the oldest layer is usually:",["On top","The thickest one","At the bottom","The one with the most fossils"],2,"Law of superposition: new layers are deposited on top of older ones."],
+[2,"Space Science","The Moon’s extreme day-night temperature difference is mainly due to its:",["Dark rocks only","Very thin or absent atmosphere","Volcanic activity","Small size"],1,"With almost no atmosphere there is nothing to hold or spread heat, so the lit side gets very hot and the dark side very cold."],
+[2,"Space Science","A day on Saturn lasts only about 10 Earth hours because Saturn:",["Is farther from the Sun","Has more moons","Has a larger orbit","Rotates faster on its axis"],3,"A day is one rotation. Saturn spins much faster than Earth."],
+[2,"Biology","Which is NOT part of classical cell theory?",["All cells are identical","All living things are made of cells","Cells come from existing cells","Cells are the basic units of life"],0,"Cells differ in shape, size, and function, so “all cells are identical” is false."],
+[2,"Biology","A homozygous dominant (AA) parent is crossed with a heterozygous (Aa) parent. What is the genotypic ratio of the offspring?",["1:2:1","3:1","1:1","1:0"],2,"AA × Aa gives AA, AA, Aa, Aa, which is 1 AA : 1 Aa, or 1:1."],
+[2,"Biology","Which blood component helps stop bleeding from a cut?",["Red blood cells","White blood cells","Plasma proteins only","Platelets"],3,"Platelets clump at a wound and start clotting. Red cells carry oxygen, white cells fight infection."],
+[2,"Biology","Which is the correct pathway of a reflex action?",["Stimulus → receptor → sensory neuron → motor neuron → effector → response","Stimulus → effector → sensory neuron → receptor","Stimulus → motor neuron → receptor → effector","Stimulus → sensory neuron → effector → receptor"],0,"A receptor detects, the sensory neuron carries the signal in, the motor neuron carries it out, and the effector responds."],
+[2,"Biology","In the nitrogen cycle, soil bacteria that convert ammonia into nitrate carry out:",["Denitrification","Nitrification","Assimilation","Ammonification"],1,"Nitrification: ammonia → nitrite → nitrate. Denitrification returns nitrogen gas to the air."],
+[2,"Biology","Which happens during mitosis?",["Crossing over","Production of haploid cells","Production of two identical diploid cells","Pairing of homologous chromosomes"],2,"Mitosis makes two genetically identical diploid cells. The other choices describe meiosis."],
+[2,"Biology","What are the products of aerobic cellular respiration?",["Oxygen and glucose","NADPH and G3P","CO₂, water, and ATP","Glucose and oxygen"],2,"Glucose + oxygen are the inputs. The outputs are carbon dioxide, water, and ATP."],
+[2,"Biology","Which structure detoxifies drugs in liver cells?",["Smooth ER","Rough ER","Lysosome","Ribosome"],0,"Smooth ER handles detoxification and lipid synthesis. Rough ER makes proteins."],
+[2,"Biology","Which statement about active transport is INCORRECT?",["It uses ATP","It moves molecules against their gradient","It is selective","It is the same as facilitated diffusion"],3,"Facilitated diffusion is passive (no ATP, down the gradient). Active transport needs ATP."],
+[2,"Biology","A red blood cell stays the same size in an isotonic solution because:",["Water cannot cross the membrane","Solute concentration is the same inside and outside","The cell wall holds it in shape","It contains no water"],1,"Equal solute concentration means no net movement of water."],
+[2,"Chemistry","A positively charged atom (cation) has:",["Gained electrons","Lost protons","Gained neutrons","Lost electrons"],3,"Losing negative electrons leaves more protons than electrons, so the charge is positive."],
+[2,"Chemistry","Isotopes are atoms of the same element with:",["The same mass number","Same neutrons but different protons","The same atomic number but different numbers of neutrons","Only different electrons"],2,"Same protons (atomic number), different neutrons, so different mass numbers."],
+[2,"Chemistry","A compound has empirical formula CH₂O and molar mass 180 g/mol. What is its molecular formula?",["C₂H₄O₂","C₆H₁₂O₆","C₃H₆O₃","C₁₂H₂₄O₁₂"],1,"CH₂O weighs about 30 g/mol. 180 ÷ 30 = 6, so multiply the formula by 6: C₆H₁₂O₆."],
+[2,"Chemistry","How many p orbitals are in a p subshell?",["3","1","2","5"],0,"s has 1 orbital, p has 3, d has 5, f has 7."],
+[2,"Chemistry","Which equation shows a combustion reaction?",["CaO + H₂O → Ca(OH)₂","N₂ + 3 H₂ → 2 NH₃","CH₄ + 2 O₂ → CO₂ + 2 H₂O","HCl + NaOH → NaCl + H₂O"],2,"Combustion is a fuel burning in oxygen to make CO₂ and water."],
+[2,"Chemistry","Aluminum forms Al³⁺ and sulfate is SO₄²⁻. What is the formula of aluminum sulfate?",["Al₃(SO₄)₂","AlSO₄","Al₂SO₄","Al₂(SO₄)₃"],3,"Balance the charges: 2 × (+3) = +6 and 3 × (−2) = −6, so Al₂(SO₄)₃."],
+[2,"Chemistry","What is the best way to get salt from salt water?",["Evaporation","Filtration","Sublimation","Magnetism"],0,"Evaporating the water leaves the salt behind. Filtration cannot remove dissolved salt."],
+[2,"Chemistry","What is the molecular shape of CO₂?",["Bent","Linear","Tetrahedral","Trigonal planar"],1,"Carbon has two double bonds and no lone pairs, so the molecule is a straight line."],
+[2,"Physics","A student walks 13 m north, 5 m east, 7 m north, then 3 m west. What is the total displacement?",["28 m, northeast","About 20 m, almost due north (slightly east)","8 m, west","13 m, north"],1,"North total = 13 + 7 = 20 m. East total = 5 − 3 = 2 m. √(20² + 2²) ≈ 20.1 m, nearly north."],
+[2,"Physics","The land speed record is 763 mi/h. About how many m/s is that? (1 mi = 1609 m)",["170 m/s","480 m/s","763 m/s","341 m/s"],3,"763 × 1609 ÷ 3600 ≈ 341 m/s."],
+[2,"Physics","A motorcyclist is 5 m from a signpost, moving at 15 m/s with a constant acceleration of 4 m/s². Where is he after 2.0 s?",["43 m","35 m","41 m","23 m"],0,"x = x₀ + vt + ½at² = 5 + 15(2) + ½(4)(4) = 5 + 30 + 8 = 43 m."],
+[2,"Physics","A motorist passes a police officer at a constant 15 m/s. The officer starts from rest with a = 3 m/s². How long until the officer catches up?",["5 s","8 s","10 s","12 s"],2,"Equal distances: 15t = ½(3)t². So t = 30 ÷ 3 = 10 s."],
+[2,"Physics","A coin is dropped from rest (g = 9.8 m/s²). What is its speed after 3.0 s?",["9.8 m/s","19.6 m/s","29.4 m/s","44.1 m/s"],2,"v = gt = 9.8 × 3 = 29.4 m/s. (44.1 m is the distance fallen.)"],
+[2,"Physics","A ball is thrown straight up at 15 m/s (g = 10 m/s²). What is its maximum height?",["11.25 m","5.6 m","22.5 m","15 m"],0,"At the top v = 0: h = v² ÷ 2g = 225 ÷ 20 = 11.25 m."],
+[2,"Physics","Riders on a carnival ride move in a circle of radius 5.0 m, one lap in 4.0 s. What is their centripetal acceleration? (π² ≈ 9.87)",["4.9 m/s²","8.2 m/s²","24.7 m/s²","12.3 m/s²"],3,"a = 4π²r ÷ T² = 4(9.87)(5) ÷ 16 ≈ 12.3 m/s²."],
+[2,"Physics","What is the speed of light in diamond (n = 2.417)? Use c = 3.0 × 10⁸ m/s.",["2.4 × 10⁸ m/s","1.24 × 10⁸ m/s","3.0 × 10⁸ m/s","1.8 × 10⁸ m/s"],1,"v = c ÷ n = 3.0 × 10⁸ ÷ 2.417 ≈ 1.24 × 10⁸ m/s."],
+[2,"Physics","A 60 m steel rod (α = 12 × 10⁻⁶ per °C) is heated by 50 °C. What is its new length?",["60.36 m","60.0036 m","59.96 m","60.036 m"],3,"ΔL = αL₀ΔT = 12 × 10⁻⁶ × 60 × 50 = 0.036 m, so the new length is 60.036 m."],
+[2,"Physics","A 4 cm tall bulb is 50 cm from a concave mirror with focal length 15 cm. Where is the image?",["33 cm","12 cm","21.4 cm","65 cm"],2,"1/dᵢ = 1/f − 1/dₒ = 1/15 − 1/50 = 7/150, so dᵢ = 150 ÷ 7 ≈ 21.4 cm."],
+[2,"Physics","What is the resistance of a circuit with 50 V and 8 A?",["6.25 Ω","58 Ω","0.16 Ω","42 Ω"],0,"Ohm’s law: R = V ÷ I = 50 ÷ 8 = 6.25 Ω."],
+[2,"Physics","The voltage in a circuit stays constant but the current doubles. What must the resistance become?",["2R","1/2 R","4R","1/4 R"],1,"R = V ÷ I. Doubling I halves R."]
+
+/*MATH*/
 ];
-var L="ABCD",A=new Array(Q.length).fill(-1),part=0,left=0,iv=null,app=document.getElementById("app"),ok1=false;
-function idxs(p){var r=[];Q.forEach(function(q,i){if(q[0]===p)r.push(i)});return r}
-function fmt(s){var m=Math.floor(s/60),x=s%60;return (m<10?"0":"")+m+":"+(x<10?"0":"")+x}
-var REFS="<p class=refs><b>Official references:</b> DOST-SEI Scholarship Examination Primer, Version 1.0, effectivity 28 Sept 2026 (your uploaded PDF); https://sei.dost.gov.ph/ ; https://ugrad.science-scholarships.ph/ . Timing (45 / 65 / 70 min), four options per item, and the no-going-back rule follow the primer. DOST-SEI does not publish item counts, so the number of items here is my own approximation. Questions are practice items by Claude, not actual DOST questions.</p>";
+var L="ABCD",A=new Array(Q.length).fill(-1),left=14400,iv=null,cur=0,app=document.getElementById("app"),ok1=false,NUM=[];
+(function(){var c=[0,0,0,0];Q.forEach(function(q,i){NUM[i]=SEC[q[0]].s+c[q[0]];c[q[0]]++})})();
+function ids(s){var r=[];Q.forEach(function(q,i){if(q[0]===s)r.push(i)});return r}
+function fmt(s){s=Math.max(s,0);var h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return h+":"+(m<10?"0":"")+m+":"+(x<10?"0":"")+x}
+var REFS="<p class=refs><b>Official references:</b> DOST-SEI Scholarship Examination Primer, Version 1.0 (28 Sept 2026); https://sei.dost.gov.ph/ ; https://ugrad.science-scholarships.ph/ . Note: this 4-section, 120-item, 4-hour layout comes from another source you gave me. The official primer lists 3 timed parts (45 / 65 / 70 minutes) and does not publish item counts. Questions are practice items written by Claude, not actual DOST questions.</p>";
 function intro(){
- app.innerHTML="<h1>DOST-SEI UGS timed mock exam</h1><p class=sub>Strict exam conditions, same as the primer.</p><div class=box><ul class=rules><li><b>Part I</b> Creative Reasoning and Language and Literature: <b>45 min</b> (16 items)</li><li><b>Part II</b> Science: <b>65 min</b> (20 items)</li><li><b>Part III</b> Mathematics: <b>70 min</b> (20 items)</li><li>Only one part is open at a time. You cannot return to an earlier part, and unused time does not carry over.</li><li>If you finish early you may review that part only, then press Finish.</li><li>The timer auto-submits the part at 0:00. Four options per item, score = number correct, no penalty, so never leave blanks.</li><li>Answers and explanations appear only after Part III. Use g = 10 m/s². No calculator, no notes.</li></ul><div class=row><button id=go type=button>Start Part I (45:00)</button></div></div>"+REFS;
- document.getElementById("go").onclick=function(){startPart(0)};
+ var n=Q.length;
+ app.innerHTML="<h1>Full mock exam: 120 items, 4 hours</h1><p class=sub>One timed exam, four sections, in this order.</p><div class=box><ul class=rules>"+SEC.map(function(s,i){return "<li><b>"+(i+1)+" · "+s.n+"</b> "+s.t+": items "+s.s+"–"+s.e+" (suggested pace "+s.pace+" min), "+ids(i).length+"/"+(s.e-s.s+1)+" items loaded</li>"}).join("")+"<li>One 4-hour clock for everything. You may jump between sections with the tabs; the exam auto-submits at 0:00:00.</li><li>Four options per item, score = number correct, no penalty: never leave blanks. Use g = 10 m/s² unless told otherwise. No calculator.</li><li>Answers and explanations appear only after you submit.</li></ul><div class=row><button id=go type=button>Start the 4-hour clock</button></div></div>"+REFS;
+ document.getElementById("go").onclick=begin;
 }
-function startPart(p){
- part=p;ok1=false;left=T[p]*60;
- var h="<div class=bar id=bar><span>Part "+(p+1)+" of 3</span><b id=tm>"+fmt(left)+"</b><div class=prog><i id=pb></i></div><span id=cnt></span></div><h2>Part "+(p+1)+": "+S[p]+"</h2><form id=f onsubmit='return false'>";
- idxs(p).forEach(function(i,k){
+function begin(){
+ left=14400;ok1=false;
+ app.innerHTML="<div class=bar id=bar><div class=r1><b id=tm>"+fmt(left)+"</b><span id=cnt></span></div><div class=tabs id=tabs></div></div><div id=sec></div><div id=msg></div><div class=row><button id=fin type=button>Submit exam</button></div>";
+ document.getElementById("fin").onclick=function(){
+  var un=A.filter(function(a){return a<0}).length;
+  if(!ok1){ok1=true;document.getElementById("msg").textContent=(un?un+" unanswered. ":"")+"Press Submit again to finish the exam.";return}
+  grade();
+ };
+ show(0);
+ iv=setInterval(function(){left--;var t=document.getElementById("tm");if(t)t.textContent=fmt(left);var b=document.getElementById("bar");if(b)b.classList.toggle("warn",left<=600);if(left<=0)grade()},1000);
+}
+function show(s){
+ cur=s;
+ document.getElementById("tabs").innerHTML=SEC.map(function(x,i){var d=ids(i).filter(function(k){return A[k]>=0}).length;return "<button type=button class='"+(i===s?"on":"")+"' data-s="+i+">"+x.n+" "+d+"/"+(x.e-x.s+1)+"</button>"}).join("");
+ var h="<h2>"+(s+1)+" · "+SEC[s].t+" (items "+SEC[s].s+"–"+SEC[s].e+")</h2>",list=ids(s);
+ if(!list.length)h+="<p class=soon>These questions are still being added to this exam. Ask Claude to continue and they will appear here.</p>";
+ list.forEach(function(i){
   var q=Q[i];
-  h+="<div class=q><p><b class=n>"+(k+1)+".</b>"+q[2]+"<span class=tag>"+q[1]+"</span></p>";
-  q[3].forEach(function(o,j){h+="<label id=l"+i+"_"+j+"><input type=radio name=r"+i+" value="+j+(A[i]===j?" checked":"")+"> <span><b>"+L[j]+".</b> "+o+"</span></label>"});
+  h+="<div class=q><p><b class=n>"+NUM[i]+".</b>"+q[2]+"<span class=tag>"+q[1]+"</span></p>";
+  q[3].forEach(function(o,j){h+="<label class='"+(A[i]===j?"sel":"")+"' id=l"+i+"_"+j+"><input type=radio name=r"+i+" value="+j+(A[i]===j?" checked":"")+"> <span><b>"+L[j]+".</b> "+o+"</span></label>"});
   h+="</div>";
  });
- h+="</form><div id=msg></div><div class=row><button id=fin type=button>Finish Part "+(p+1)+"</button></div>";
- app.innerHTML=h;window.scrollTo(0,0);
- document.getElementById("f").addEventListener("change",function(e){
-  var t=e.target,i=+t.name.slice(1),j=+t.value;A[i]=j;
-  for(var k=0;k<4;k++)document.getElementById("l"+i+"_"+k).classList.toggle("sel",k===j);
-  upd();
- });
- document.getElementById("fin").onclick=function(){
-  var un=idxs(part).filter(function(i){return A[i]<0}).length;
-  if(!ok1){ok1=true;document.getElementById("msg").textContent=(un?un+" unanswered. ":"")+"You cannot come back to this part. Press Finish again to confirm.";return}
-  endPart(false);
- };
- upd();
- clearInterval(iv);
- iv=setInterval(function(){
-  left--;
-  var tm=document.getElementById("tm");if(tm)tm.textContent=fmt(Math.max(left,0));
-  var b=document.getElementById("bar");if(b)b.classList.toggle("warn",left<=300);
-  if(left<=0)endPart(true);
- },1000);
+ var el=document.getElementById("sec");el.innerHTML=h;
+ el.onchange=function(e){var t=e.target,i=+t.name.slice(1),j=+t.value;A[i]=j;for(var k=0;k<4;k++)document.getElementById("l"+i+"_"+k).classList.toggle("sel",k===j);cnt();tabsCount()};
+ document.getElementById("tabs").onclick=function(e){var b=e.target.closest("button");if(b){show(+b.dataset.s);window.scrollTo(0,0)}};
+ cnt();
 }
-function upd(){
- var ids=idxs(part),n=ids.filter(function(i){return A[i]>=0}).length;
- document.getElementById("cnt").textContent=n+"/"+ids.length;
- document.getElementById("pb").style.width=(100*n/ids.length)+"%";
-}
-function endPart(auto){
- clearInterval(iv);
- if(part<2){
-  var n=part+1;
-  app.innerHTML="<h1>Part "+part+" "+(auto?"time is up":"finished")+"</h1><div class=box><p>Part "+(part+1)+" is locked. Take a breath, then begin Part "+(n+1)+": <b>"+S[n]+"</b>, "+T[n]+" minutes. The clock starts when you press the button.</p><div class=row><button id=go type=button>Start Part "+(n+1)+" ("+T[n]+":00)</button></div></div>";
-  document.getElementById("go").onclick=function(){startPart(n)};
-  return;
- }
- grade();
-}
+function tabsCount(){var bs=document.querySelectorAll("#tabs button");SEC.forEach(function(x,i){var d=ids(i).filter(function(k){return A[k]>=0}).length;bs[i].textContent=x.n+" "+d+"/"+(x.e-x.s+1)})}
+function cnt(){document.getElementById("cnt").textContent=A.filter(function(a){return a>=0}).length+"/"+Q.length+" answered"}
 function grade(){
- var tot=[0,0,0],cor=[0,0,0],wrong=[],str=[],miss={},h="";
- Q.forEach(function(q,i){
-  var s=q[0];tot[s]++;var a=A[i],ok=a===q[4];if(ok)cor[s]++;else{wrong.push(i+1);miss[q[1]]=(miss[q[1]]||0)+1}
-  str.push((i+1)+(a<0?"-":L[a]));
- });
- var c=cor[0]+cor[1]+cor[2],pct=Math.round(100*c/Q.length);
- var pr=cor.map(function(x,s){return x/tot[s]});
- var best=pr.indexOf(Math.max.apply(null,pr)),worst=pr.indexOf(Math.min.apply(null,pr));
+ clearInterval(iv);
+ var tot=[0,0,0,0],cor=[0,0,0,0],str=[],miss={},wrong=0;
+ Q.forEach(function(q,i){var s=q[0],a=A[i],ok=a===q[4];tot[s]++;if(ok)cor[s]++;else{wrong++;miss[q[1]]=(miss[q[1]]||0)+1}str.push(NUM[i]+(a<0?"-":L[a]))});
+ var c=cor.reduce(function(x,y){return x+y},0),pct=Math.round(100*c/Q.length);
+ var act=[0,1,2,3].filter(function(s){return tot[s]>0}),pr=act.map(function(s){return cor[s]/tot[s]});
+ var best=act[pr.indexOf(Math.max.apply(null,pr))],worst=act[pr.indexOf(Math.min.apply(null,pr))];
  var mt=Object.keys(miss).sort(function(a,b){return miss[b]-miss[a]}).map(function(k){return k+" ("+miss[k]+")"}).join(", ");
- h+="<h1>Results</h1><div class=res><p class=big>"+c+" / "+Q.length+" ("+pct+"%)</p>";
- S.forEach(function(n,s){h+="<div>"+n+": "+cor[s]+" / "+tot[s]+" ("+Math.round(100*cor[s]/tot[s])+"%)</div>"});
- h+="<p>Strongest: <b>"+S[best]+"</b>. Weakest: <b>"+S[worst]+"</b>.</p><p>Topics to review: "+(mt||"none, great job")+"</p>";
- h+="<p>Copy this and send it to Claude for a walkthrough and a targeted follow-up:</p><textarea id=ans rows=3 readonly>"+str.join(", ")+"</textarea><div class=row><button type=button id=cp>Copy my answers</button><button type=button class=alt id=rt>Retake</button></div></div>";
- var cur=-1;
+ var h="<h1>Results</h1><div class=res><p class=big>"+c+" / "+Q.length+" ("+pct+"%)</p>";
+ act.forEach(function(s){h+="<div>"+SEC[s].n+" · "+SEC[s].t+": "+cor[s]+" / "+tot[s]+" ("+Math.round(100*cor[s]/tot[s])+"%)</div>"});
+ h+="<p>Strongest: <b>"+SEC[best].n+"</b>. Weakest: <b>"+SEC[worst].n+"</b>. Time left: "+fmt(left)+".</p><p>Topics to review: "+(mt||"none, great job")+"</p>";
+ h+="<p>Copy this and send it to Claude for a walkthrough and a targeted follow-up:</p><textarea id=ans rows=4 readonly>"+str.join(", ")+"</textarea><div class=row><button type=button id=cp>Copy my answers</button><button type=button class=alt id=rt>Retake</button></div></div>";
+ var cs=-1;
  Q.forEach(function(q,i){
-  if(q[0]!==cur){cur=q[0];h+="<h2>Part "+(cur+1)+": "+S[cur]+"</h2>"}
+  if(q[0]!==cs){cs=q[0];h+="<h2>"+(cs+1)+" · "+SEC[cs].t+"</h2>"}
   var a=A[i],ok=a===q[4];
-  h+="<div class=q><p><b class=n>"+(i+1)+".</b>"+q[2]+"<span class=tag>"+q[1]+"</span></p>";
+  h+="<div class=q><p><b class=n>"+NUM[i]+".</b>"+q[2]+"<span class=tag>"+q[1]+"</span></p>";
   q[3].forEach(function(o,j){h+="<label class='"+(j===q[4]?"right":(j===a?"wrong":""))+"'><span><b>"+L[j]+".</b> "+o+"</span></label>"});
   h+="<div class='ex"+(ok?"":" w")+"'>"+(ok?"<b>Correct.</b> ":"<b>"+(a<0?"Skipped":"Your answer: "+L[a])+". Correct: "+L[q[4]]+".</b> ")+q[5]+"</div></div>";
  });

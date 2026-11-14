@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DOST-SEI Mock Exam (45 items)</title>
+<title>DOST-SEI UGS Timed Mock Exam</title>
 <style>
 :root{--bg:#f6f7f4;--card:#fff;--ink:#1c2321;--mute:#5d6a66;--line:#d9dfdb;--acc:#1f5f4a;--accbg:#e3f1ea;--ok:#1d7a3e;--okbg:#e2f4e8;--bad:#b3261e;--badbg:#fbe7e5;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -14,14 +14,18 @@ html{scroll-padding-top:70px}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Georgia,"Times New Roman",serif}
 main{max-width:720px;margin:0 auto;padding:16px 16px 90px}
 h1{font-size:1.5rem;margin:8px 0 4px}
-.sub{color:var(--mute);margin:0 0 12px;font-family:system-ui,sans-serif;font-size:.9rem}
+.sub,.rules{color:var(--mute);font-family:system-ui,sans-serif;font-size:.92rem}
+.rules li{margin:4px 0}
 .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;font-family:system-ui,sans-serif;font-size:.9rem}
+.bar b{font-size:1.3rem;font-variant-numeric:tabular-nums}
+.bar.warn b{color:var(--bad)}
 .prog{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
 .prog i{display:block;height:100%;width:0;background:var(--acc);transition:width .2s}
-h2{font-size:1.15rem;margin:28px 0 8px;padding-bottom:4px;border-bottom:2px solid var(--acc)}
+h2{font-size:1.15rem;margin:22px 0 8px;padding-bottom:4px;border-bottom:2px solid var(--acc)}
 .q{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0}
 .q p{margin:0 0 8px}
 .q b.n{color:var(--acc);margin-right:4px}
+.tag{display:inline-block;font:600 .7rem system-ui,sans-serif;color:var(--acc);background:var(--accbg);border-radius:10px;padding:1px 8px;margin-left:6px;vertical-align:middle}
 label{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;margin:4px 0;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-family:system-ui,sans-serif;font-size:.95rem}
 label:hover{background:var(--accbg)}
 input{margin-top:3px;accent-color:var(--acc)}
@@ -33,130 +37,157 @@ label.wrong{background:var(--badbg);border-color:var(--bad)}
 button{font:600 1rem system-ui,sans-serif;padding:12px 20px;border-radius:8px;border:0;background:var(--acc);color:#fff;cursor:pointer}
 :root:not([data-theme="light"]) button{color:#0b1a14}
 button.alt{background:transparent;color:var(--acc);border:1px solid var(--acc)}
-.res{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:16px 0;font-family:system-ui,sans-serif}
+.res,.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:16px 0;font-family:system-ui,sans-serif}
 .big{font-size:2rem;font-weight:700;margin:0}
 .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 textarea{width:100%;font:.9rem monospace;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);margin-top:8px}
 #msg{color:var(--bad);font-family:system-ui,sans-serif;margin-top:8px;min-height:1.2em}
+.refs{font-family:system-ui,sans-serif;font-size:.8rem;color:var(--mute);margin-top:24px}
 </style>
 </head>
 <body>
-<main>
-<h1>DOST-SEI mock exam</h1>
-<p class="sub">45 items, about 50 minutes. Practice set made by Claude, not actual DOST questions. Pick one answer per item, then submit everything at once. Use g = 10 m/s² where needed.</p>
-<div class="bar"><span id="cnt">0/45 answered</span><div class="prog"><i id="pb"></i></div></div>
-<form id="f" onsubmit="return false"></form>
-<div id="msg"></div>
-<div class="row"><button id="sub" type="button">Submit all answers</button></div>
-<div id="out"></div>
-</main>
+<main id="app"></main>
 <script>
-var S=["Creative Reasoning and Language","Science","Mathematics"];
+var S=["Creative Reasoning and Language and Literature","Science","Mathematics"];
+var T=[45,65,70];
 var Q=[
-[0,"A 1.5 m crowbar has its fulcrum 0.3 m from a 600 N load. What force at the far end lifts it?",["100 N","150 N","200 N","300 N"],1,"Effort arm = 1.5 − 0.3 = 1.2 m. Load × load arm = effort × effort arm: 600 × 0.3 = F × 1.2, so F = 150 N."],
-[0,"An ideal pulley system with 4 rope segments supports a 240 N load. What is the effort force?",["30 N","120 N","240 N","60 N"],3,"Ideal mechanical advantage = number of supporting segments = 4. Effort = 240 ÷ 4 = 60 N."],
-[0,"Two identical bulbs are in series with a battery. If one burns out (open circuit), what happens to the other?",["It also goes out","Same brightness","Brighter","Dimmer but lit"],0,"Series means one path. A break stops current everywhere."],
-[0,"Two identical bulbs are in parallel with an ideal battery. If one burns out, the other:",["Goes out","Gets dimmer","Stays the same brightness","Gets brighter"],2,"Each parallel branch gets the full battery voltage independently, so the other bulb is unchanged."],
-[0,"Three meshed gears A, B, C are in a row. A turns clockwise. C turns:",["Clockwise","Counterclockwise","Not at all","Cannot be determined"],0,"Meshed gears alternate direction: A clockwise, B counterclockwise, C clockwise."],
-[0,"A ball hangs from a string on the ceiling of a bus. The bus accelerates forward. Relative to the bus, the ball swings:",["Forward","Backward toward the rear","Stays vertical","Sideways"],1,"Inertia: the ball resists the change in motion, so it lags toward the rear."],
-[0,"How many faces, edges, and vertices does a triangular prism have (in that order)?",["4, 6, 4","6, 9, 5","5, 8, 5","5, 9, 6"],3,"2 triangles + 3 rectangles = 5 faces. Edges: 3 + 3 + 3 = 9. Vertices: 3 + 3 = 6."],
-[0,"Complete the series: 2, 6, 12, 20, 30, ___",["36","40","42","44"],2,"Differences are 4, 6, 8, 10, so the next is +12: 30 + 12 = 42. (Also n(n+1): 6 × 7.)"],
-[0,"A square paper is folded in half twice (4 layers). One hole is punched through all layers, away from the folds. How many holes show when it is unfolded?",["4","1","2","8"],0,"Each layer gets one hole, so 4 layers give 4 holes."],
-[0,"You face north, turn 90° right, then 180°, then 90° left. Which way do you face now?",["North","West","South","East"],2,"North → right 90° = East → turn 180° = West → left 90° (from West) = South."],
-[0,"THERMOMETER : TEMPERATURE :: ODOMETER : ?",["speed","distance","fuel","time"],1,"A thermometer measures temperature. An odometer measures distance traveled (a speedometer measures speed)."],
-[0,"PETAL : FLOWER :: PAGE : ?",["ink","word","author","book"],3,"Part to whole: a petal is part of a flower, a page is part of a book."],
-[0,"Did Maria really ___ the last slice of pizza?",["eat","ate","eaten","eats"],0,"After the auxiliary did, the main verb stays in base form: eat."],
-[0,"“The scientist was meticulous, checking every measurement twice.” Meticulous means:",["careless","very careful","quick","proud"],1,"The context clue (checking twice) shows careful attention to detail."],
-[0,"Which sentence has correct subject-verb agreement?",["The group of students are late.","Each of the boys have a bike.","Everyone in the class has finished.","Neither of them are ready."],2,"Everyone, each, and neither are singular and take singular verbs: has, has, is. Only C is correct."],
-[1,"A 1000 kg car speeds up uniformly from rest to 20 m/s in 10 s. What is the net force?",["200 N","20,000 N","2,000 N","1,000 N"],2,"a = 20 ÷ 10 = 2 m/s². F = ma = 1000 × 2 = 2,000 N."],
-[1,"How much work is done lifting a 5 kg object 4 m at constant speed?",["20 J","200 J","50 J","2,000 J"],1,"W = mgh = 5 × 10 × 4 = 200 J."],
-[1,"At the highest point of a projectile’s path (no air resistance):",["vertical velocity = 0 and acceleration = 0","the velocity is zero","vertical velocity = 0 and acceleration = 10 m/s² downward","horizontal velocity = 0 and acceleration = 10 m/s² downward"],2,"Gravity never stops acting, so a = g downward. Only the vertical velocity is zero; horizontal velocity stays constant."],
-[1,"If a moving object doubles its speed, its kinetic energy becomes:",["4 times","2 times","8 times","unchanged"],0,"KE = ½mv². Speed is squared, so 2² = 4 times."],
-[1,"A 2 kg cart moving at 3 m/s hits a 1 kg cart at rest and they stick together. Their speed afterward is:",["1 m/s","1.5 m/s","3 m/s","2 m/s"],3,"Momentum is conserved: 2 × 3 = (2 + 1)v, so v = 6 ÷ 3 = 2 m/s."],
-[1,"How many moles are in 36 g of water (H₂O, 18 g/mol)?",["0.5","2","1","4"],1,"moles = mass ÷ molar mass = 36 ÷ 18 = 2."],
-[1,"A chlorine atom has atomic number 17 and mass number 35. How many neutrons does it have?",["17","35","52","18"],3,"Neutrons = mass number − atomic number = 35 − 17 = 18."],
-[1,"Carbon-14 has a half-life of 5730 years. How much of a 20 g sample remains after 11,460 years?",["10 g","7.5 g","5 g","2.5 g"],2,"11,460 ÷ 5730 = 2 half-lives. 20 → 10 → 5 g."],
-[1,"0.5 mol of NaCl is dissolved to make 250 mL of solution. What is the molarity?",["0.5 M","1.0 M","125 M","2.0 M"],3,"250 mL = 0.25 L. M = 0.5 ÷ 0.25 = 2.0 M."],
-[1,"A red blood cell is placed in a hypertonic solution. It will:",["Swell and burst","Shrink","Stay the same","Divide"],1,"Hypertonic means more solute outside, so water leaves the cell and it shrinks."],
-[1,"In a cross of Aa × Aa, what is the probability of an offspring with genotype aa?",["0","1/2","3/4","1/4"],3,"Punnett square gives AA, Aa, Aa, aa, so aa = 1/4."],
-[1,"A cell with 12 chromosomes undergoes mitosis. How many chromosomes does each daughter cell have?",["6","24","12","3"],2,"Mitosis makes identical cells, so the chromosome number stays 12. (Meiosis would halve it.)"],
-[1,"The Mid-Atlantic Ridge is an example of a ______ plate boundary.",["divergent","convergent","transform","subduction"],0,"Mid-ocean ridges form where plates move apart and new crust is made: divergent."],
-[1,"Marble forms when heat and pressure change which rock?",["Sandstone","Shale","Granite","Limestone"],3,"Limestone becomes marble. (Shale becomes slate, sandstone becomes quartzite.)"],
-[1,"Our Sun will end its life as a:",["black hole","white dwarf","supernova","neutron star"],1,"The Sun is too small for a supernova. It becomes a red giant, then a white dwarf."],
-[2,"Ana is 3 times as old as Ben. In 6 years, the sum of their ages will be 36. How old is Ana now?",["6","12","24","18"],3,"Let Ben = b, Ana = 3b. (3b + 6) + (b + 6) = 36, so 4b = 24, b = 6. Ana = 18."],
-[2,"What is the sum of the roots of 2x² − 10x + 8 = 0?",["4","5","−5","10"],1,"Sum of roots = −b/a = 10/2 = 5."],
-[2,"Solve: log₂ x + log₂ (x − 2) = 3",["−2","2","8","4"],3,"x(x − 2) = 2³ = 8, so x² − 2x − 8 = 0, giving x = 4 or −2. Reject −2 (log of a negative). x = 4."],
-[2,"An arithmetic sequence has a₁ = 5 and d = 3. What is the 20th term?",["57","62","60","65"],1,"aₙ = a₁ + (n − 1)d = 5 + 19 × 3 = 62."],
-[2,"Pipe A fills a tank in 6 hours and Pipe B fills it in 3 hours. How long will both take together?",["1.5 h","3 h","2 h","4.5 h"],2,"Rates add: 1/6 + 1/3 = 1/2 tank per hour, so 2 hours."],
-[2,"What is the sum of the interior angles of a hexagon?",["540°","720°","900°","1080°"],1,"(n − 2) × 180 = 4 × 180 = 720°."],
-[2,"Two chords intersect inside a circle, forming an angle that intercepts arcs of 80° and 40°. What is the angle?",["40°","120°","60°","30°"],2,"Angle inside a circle = ½(sum of intercepted arcs) = ½(80 + 40) = 60°."],
-[2,"What is the volume of a cylinder with radius 3 and height 10?",["30π","60π","270π","90π"],3,"V = πr²h = π × 9 × 10 = 90π."],
-[2,"What is sin 30° + cos 60°?",["1/2","1","√3/2","√3"],1,"sin 30° = 1/2 and cos 60° = 1/2, so the sum is 1."],
-[2,"In a right triangle, the side opposite θ is 5 and the hypotenuse is 13. What is cos θ?",["5/12","5/13","12/13","13/12"],2,"Adjacent = √(13² − 5²) = 12. cos θ = adjacent/hypotenuse = 12/13."],
-[2,"What is the median of 3, 9, 5, 7, 11, 13?",["7","9","8","8.5"],2,"Sorted: 3, 5, 7, 9, 11, 13. Six values, so average the middle two: (7 + 9)/2 = 8."],
-[2,"Two fair dice are rolled. What is the probability that the sum is 7?",["1/12","1/6","1/9","1/4"],1,"Six ways (1-6, 2-5, 3-4, 4-3, 5-2, 6-1) out of 36 = 1/6."],
-[2,"How many 3-digit codes can be made from the digits 1–5 with no repeated digit?",["10","15","125","60"],3,"Order matters (permutation): 5 × 4 × 3 = 60."],
-[2,"Evaluate: lim (x → 3) (x² − 9)/(x − 3)",["6","0","3","Does not exist"],0,"Factor: (x − 3)(x + 3)/(x − 3) = x + 3, which is 6 at x = 3."],
-[2,"Evaluate: ∫₀² 4x³ dx",["8","32","16","4"],2,"Antiderivative is x⁴. At 2: 16, at 0: 0. Answer 16."]
+[0,"Mechanical","A 10 N force pushes a box 4 m along the floor, in the direction of the force. How much work is done?",["14 J","40 J","2.5 J","400 J"],1,"Work = force × distance = 10 × 4 = 40 J."],
+[0,"Mechanical","A person pushes a wall with 200 N, but the wall does not move. How much work is done on the wall?",["0 J","200 J","20 J","Cannot be determined"],0,"Work needs movement. No displacement means zero work, however hard you push."],
+[0,"Mechanical","In a sealed hydraulic system, a 2 cm² piston is pushed with 10 N. What force appears on a 20 cm² piston?",["1 N","20 N","100 N","200 N"],2,"Pressure is the same everywhere. The big piston has 10 times the area, so it gives 10 times the force: 100 N."],
+[0,"Mechanical","A ball rolls down a smooth hill and up a second hill. Ignoring friction, how high does it rise compared with its starting height?",["Higher","Lower","Cannot be determined","The same height"],3,"Energy is conserved. All the potential energy comes back, so it reaches the same height."],
+[0,"Spatial","How many edges does a pentagonal prism have?",["10","15","12","20"],1,"Two pentagons have 5 + 5 = 10 edges. Five vertical edges join them. Total 15."],
+[0,"Spatial","An arrow pointing right is reflected in a horizontal mirror line. Which way does the image point?",["Left","Up","Right","Down"],2,"A horizontal mirror flips up and down only. An arrow pointing sideways stays pointing right."],
+[0,"Spatial","Which arrangement of six squares CANNOT be folded into a cube?",["A row of four, one square above the 2nd and one below the 3rd","A row of four, one square above the 1st and one below the 4th","A 2 × 3 block of squares","A row of four, one square above and one below the 2nd"],2,"A 2 × 3 block has squares that overlap when folded. Rows of four with one square above and one below (any positions) do fold into a cube."],
+[0,"Spatial","A solid has a bottom layer of 3 × 3 cubes and a top layer of a 2 × 2 block resting on it. How many cubes in total?",["12","15","18","13"],3,"Bottom layer 9 + top layer 4 = 13."],
+[0,"Verbal","PILOT : AIRPLANE :: CAPTAIN : ?",["crew","sea","ship","port"],2,"A pilot controls an airplane. A captain controls a ship."],
+[0,"Verbal","ACCELERATE : SPEED UP :: DECELERATE : ?",["stop","turn","drive","slow down"],3,"Same meaning pairs: accelerate means speed up, decelerate means slow down."],
+[0,"Verbal","Which one does not belong?",["oxygen","nitrogen","helium","water"],3,"Oxygen, nitrogen, and helium are elements. Water is a compound."],
+[0,"Verbal","If it rains, the match is cancelled. The match was not cancelled. What can we conclude?",["It rained","It will rain later","It did not rain","Nothing can be concluded"],2,"If rain always causes cancellation, no cancellation means no rain."],
+[0,"Language","Which underlined part has an error? “Despite of [A] the heavy rain [B], the game [C] continued [D].”",["Despite of","the heavy rain","the game","continued"],0,"It is “despite” (no “of”) or “in spite of”."],
+[0,"Language","She is one of the students who ___ always on time.",["is","are","was","be"],1,"“Who” refers to “students” (plural), so the verb is are."],
+[0,"Language","The new rule is redundant. Redundant means:",["unnecessary","dangerous","strict","fair"],0,"Redundant means more than needed, or repeating something already there."],
+[0,"Language","Rice terraces in the Cordillera were carved by hand centuries ago. Water flows from mountain springs through channels, from one level to the next. Without careful community cooperation to maintain the channels, the terraces would dry up. What keeps the terraces alive?",["Heavy machinery","Modern fertilizers","Seasonal tourists","Community cooperation to maintain the water channels"],3,"The last sentence says the terraces dry up without community cooperation on the channels."],
+[1,"Biology","Which gas is released as a by-product of photosynthesis?",["Carbon dioxide","Nitrogen","Oxygen","Hydrogen"],2,"Plants take in CO₂ and water and release oxygen."],
+[1,"Biology","A homozygous tall plant (TT) is crossed with a homozygous short plant (tt). The F1 offspring are:",["All short","All tall","Half tall, half short","3 tall : 1 short"],1,"All offspring are Tt. Tall is dominant, so all are tall."],
+[1,"Biology","Which structure controls what enters and leaves a cell?",["Cell membrane","Cell wall","Nucleus","Vacuole"],0,"The cell membrane is selectively permeable. The wall only gives support."],
+[1,"Biology","Which statement best describes natural selection?",["Organisms choose which traits to pass on","All organisms in a population survive equally","Traits acquired during life are inherited","Individuals with traits better suited to their environment survive and reproduce more"],3,"Better-adapted individuals survive and reproduce more, so helpful traits become common."],
+[1,"Chemistry","How many grams are in 0.5 mol of NaOH (molar mass 40 g/mol)?",["20 g","80 g","0.0125 g","40 g"],0,"mass = moles × molar mass = 0.5 × 40 = 20 g."],
+[1,"Chemistry","Which is a chemical change?",["Ice melting","Sugar dissolving in water","Iron rusting","Water boiling"],2,"Rusting makes a new substance (iron oxide). The others only change state or mix."],
+[1,"Chemistry","An atom has atomic number 15 and mass number 31. How many neutrons does it have?",["15","31","46","16"],3,"Neutrons = mass number − atomic number = 31 − 15 = 16."],
+[1,"Chemistry","A 5 L gas at 300 K is heated to 600 K at constant pressure. What is its new volume?",["10 L","5 L","2.5 L","20 L"],0,"Charles’s law: volume is proportional to Kelvin temperature. The temperature doubles, so the volume doubles."],
+[1,"Earth Science","Which type of plate boundary built the Himalayas?",["Divergent","Transform","Convergent","Hotspot"],2,"Two continental plates collided (convergent), pushing the crust up into mountains."],
+[1,"Earth Science","Which layer of the Earth is liquid?",["Inner core","Outer core","Mantle","Crust"],1,"The outer core is liquid metal. The inner core is solid because of great pressure."],
+[1,"Earth Science","Which of these is a renewable energy source?",["Coal","Natural gas","Oil","Geothermal"],3,"Geothermal heat from the Earth is continuously available. Coal, gas, and oil are fossil fuels."],
+[1,"Earth Science","Typhoons in the Philippines form over:",["Cold polar seas","Deserts","High mountains","Warm tropical ocean water"],3,"Typhoons get their energy from warm ocean water, usually above about 26 °C."],
+[1,"Physics","A 1500 kg car accelerates at 2 m/s². What is the net force?",["750 N","3000 N","1500 N","300 N"],1,"F = ma = 1500 × 2 = 3000 N."],
+[1,"Physics","A 3 kg object moves at 4 m/s. What is its momentum?",["7 kg·m/s","1.3 kg·m/s","48 kg·m/s","12 kg·m/s"],3,"p = mv = 3 × 4 = 12 kg·m/s."],
+[1,"Physics","A 4 kg box is lifted 5 m. What is its gain in potential energy? (g = 10 m/s²)",["200 J","20 J","9 J","2000 J"],0,"PE = mgh = 4 × 10 × 5 = 200 J."],
+[1,"Physics","What happens to the pitch of a sound when its frequency increases?",["Lower","Same","Quieter","Higher"],3,"Higher frequency means higher pitch. Loudness depends on amplitude."],
+[1,"Physics","Two 4 Ω resistors are in series with a 16 V battery. What is the current?",["8 A","4 A","2 A","0.5 A"],2,"Series resistance = 4 + 4 = 8 Ω. I = V ÷ R = 16 ÷ 8 = 2 A."],
+[1,"Space Science","Which planet has the shortest year?",["Mercury","Venus","Earth","Mars"],0,"Mercury is closest to the Sun, so it has the shortest orbit and the shortest year."],
+[1,"Space Science","What causes the phases of the Moon?",["Earth’s shadow falling on the Moon","Clouds blocking the Moon","We see different amounts of the Moon’s sunlit half as it orbits Earth","The Moon’s changing size"],2,"Half the Moon is always lit. As it orbits, we see more or less of that lit half."],
+[1,"Space Science","The Sun produces its energy mainly by:",["Burning coal","Nuclear fusion","Nuclear fission","Chemical combustion"],1,"In the Sun’s core, hydrogen fuses into helium and releases energy."],
+[2,"Algebra","Solve: 5x − 3 = 2x + 12",["−5","15","3","5"],3,"Subtract 2x: 3x − 3 = 12. Add 3: 3x = 15. So x = 5."],
+[2,"Algebra","Simplify: (x²y³)² ÷ (xy)",["x³y⁵","x⁴y⁶","x³y⁴","xy³"],0,"(x²y³)² = x⁴y⁶. Dividing by xy subtracts exponents: x³y⁵."],
+[2,"Algebra","For what value of k does x² − 8x + k = 0 have two equal roots?",["8","64","16","−16"],2,"Equal roots need b² − 4ac = 0: 64 − 4k = 0, so k = 16."],
+[2,"Algebra","Solve: log₂ (x + 3) = 4",["13","19","5","1"],0,"x + 3 = 2⁴ = 16, so x = 13."],
+[2,"Algebra","A car goes 240 km at 60 km/h and returns at 80 km/h. What is its average speed for the round trip?",["70 km/h","65 km/h","68.6 km/h","72 km/h"],2,"Total distance 480 km. Time = 240/60 + 240/80 = 4 + 3 = 7 h. Average = 480 ÷ 7 ≈ 68.6 km/h. Never just average the two speeds."],
+[2,"Geometry","A square has a perimeter of 36 cm. What is the length of its diagonal?",["9 cm","18 cm","81 cm","9√2 cm"],3,"Side = 36 ÷ 4 = 9. Diagonal = side × √2 = 9√2."],
+[2,"Geometry","In triangle ABC, ∠A = 50° and ∠B = 60°. What is the exterior angle at C?",["70°","120°","130°","110°"],3,"∠C = 180 − 110 = 70°. The exterior angle is 180 − 70 = 110° (also A + B)."],
+[2,"Geometry","What is the volume of a sphere of radius 3? (V = 4/3 πr³)",["12π","108π","36π","27π"],2,"V = 4/3 × π × 27 = 36π."],
+[2,"Geometry","A chord 8 cm long is 3 cm from the center of a circle. What is the radius?",["7 cm","5 cm","4 cm","11 cm"],1,"Half the chord is 4. r² = 3² + 4² = 25, so r = 5."],
+[2,"Trigonometry","What is sin 30° + cos 60° + tan 45°?",["2","1","3/2","3"],0,"1/2 + 1/2 + 1 = 2."],
+[2,"Trigonometry","A taut kite string 100 m long makes a 30° angle with the ground. How high is the kite?",["25 m","50 m","50√3 m","100 m"],1,"Height = 100 × sin 30° = 100 × 1/2 = 50 m."],
+[2,"Trigonometry","Convert 180° to radians.",["π/2","π/4","2π","π"],3,"180° = π radians. Multiply degrees by π/180."],
+[2,"Statistics","The mean of 6 numbers is 10. One number, 4, is replaced by 16. What is the new mean?",["11","10","12","13"],2,"Old sum = 60. Replacing 4 with 16 adds 12, so the sum is 72. 72 ÷ 6 = 12."],
+[2,"Probability","Two fair coins are tossed. What is the probability of at least one head?",["1/4","3/4","1/2","1"],1,"Only TT has no head. P = 1 − 1/4 = 3/4."],
+[2,"Counting","How many different arrangements are there of the letters of BANANA?",["720","120","30","60"],3,"6 letters with A repeated 3 times and N twice: 6! ÷ (3! × 2!) = 720 ÷ 12 = 60."],
+[2,"Statistics","Every score in a data set is increased by 5. What happens to the standard deviation?",["Increases by 5","Doubles","Stays the same","Becomes 0"],2,"Adding the same number shifts the data but does not change the spread."],
+[2,"Calculus","Differentiate y = 4x³ − 5x² + 2.",["12x² − 10x","12x² − 5x","4x² − 10x","12x³ − 10x²"],0,"Bring down exponents and subtract 1: 4·3x² = 12x², 5·2x = 10x, and the constant gives 0."],
+[2,"Calculus","Evaluate: lim (x → 0) (sin 3x)/x",["0","1","3","1/3"],2,"Write it as 3 × (sin 3x)/(3x). The fraction goes to 1, so the limit is 3."],
+[2,"Calculus","Evaluate: ∫₀³ x² dx",["27","9","3","6"],1,"Antiderivative is x³/3. At 3: 27/3 = 9. At 0: 0. Answer 9."],
+[2,"Calculus","What is the slope of the tangent to y = x² − 4x at x = 3?",["5","−1","6","2"],3,"y′ = 2x − 4. At x = 3: 6 − 4 = 2."]
 ];
-var L="ABCD",A=new Array(Q.length).fill(-1),done=false;
-var f=document.getElementById("f");
-function build(){
- var h="",cur=-1;
- Q.forEach(function(q,i){
-  if(q[0]!==cur){cur=q[0];h+="<h2>Part "+(cur+1)+": "+S[cur]+"</h2>"}
-  h+="<div class=q id=q"+i+"><p><b class=n>"+(i+1)+".</b>"+q[1]+"</p>";
-  q[2].forEach(function(o,j){h+="<label id=l"+i+"_"+j+"><input type=radio name=r"+i+" value="+j+"> <span><b>"+L[j]+".</b> "+o+"</span></label>"});
+var L="ABCD",A=new Array(Q.length).fill(-1),part=0,left=0,iv=null,app=document.getElementById("app"),ok1=false;
+function idxs(p){var r=[];Q.forEach(function(q,i){if(q[0]===p)r.push(i)});return r}
+function fmt(s){var m=Math.floor(s/60),x=s%60;return (m<10?"0":"")+m+":"+(x<10?"0":"")+x}
+var REFS="<p class=refs><b>Official references:</b> DOST-SEI Scholarship Examination Primer, Version 1.0, effectivity 28 Sept 2026 (your uploaded PDF); https://sei.dost.gov.ph/ ; https://ugrad.science-scholarships.ph/ . Timing (45 / 65 / 70 min), four options per item, and the no-going-back rule follow the primer. DOST-SEI does not publish item counts, so the number of items here is my own approximation. Questions are practice items by Claude, not actual DOST questions.</p>";
+function intro(){
+ app.innerHTML="<h1>DOST-SEI UGS timed mock exam</h1><p class=sub>Strict exam conditions, same as the primer.</p><div class=box><ul class=rules><li><b>Part I</b> Creative Reasoning and Language and Literature: <b>45 min</b> (16 items)</li><li><b>Part II</b> Science: <b>65 min</b> (20 items)</li><li><b>Part III</b> Mathematics: <b>70 min</b> (20 items)</li><li>Only one part is open at a time. You cannot return to an earlier part, and unused time does not carry over.</li><li>If you finish early you may review that part only, then press Finish.</li><li>The timer auto-submits the part at 0:00. Four options per item, score = number correct, no penalty, so never leave blanks.</li><li>Answers and explanations appear only after Part III. Use g = 10 m/s². No calculator, no notes.</li></ul><div class=row><button id=go type=button>Start Part I (45:00)</button></div></div>"+REFS;
+ document.getElementById("go").onclick=function(){startPart(0)};
+}
+function startPart(p){
+ part=p;ok1=false;left=T[p]*60;
+ var h="<div class=bar id=bar><span>Part "+(p+1)+" of 3</span><b id=tm>"+fmt(left)+"</b><div class=prog><i id=pb></i></div><span id=cnt></span></div><h2>Part "+(p+1)+": "+S[p]+"</h2><form id=f onsubmit='return false'>";
+ idxs(p).forEach(function(i,k){
+  var q=Q[i];
+  h+="<div class=q><p><b class=n>"+(k+1)+".</b>"+q[2]+"<span class=tag>"+q[1]+"</span></p>";
+  q[3].forEach(function(o,j){h+="<label id=l"+i+"_"+j+"><input type=radio name=r"+i+" value="+j+(A[i]===j?" checked":"")+"> <span><b>"+L[j]+".</b> "+o+"</span></label>"});
   h+="</div>";
  });
- f.innerHTML=h;
+ h+="</form><div id=msg></div><div class=row><button id=fin type=button>Finish Part "+(p+1)+"</button></div>";
+ app.innerHTML=h;window.scrollTo(0,0);
+ document.getElementById("f").addEventListener("change",function(e){
+  var t=e.target,i=+t.name.slice(1),j=+t.value;A[i]=j;
+  for(var k=0;k<4;k++)document.getElementById("l"+i+"_"+k).classList.toggle("sel",k===j);
+  upd();
+ });
+ document.getElementById("fin").onclick=function(){
+  var un=idxs(part).filter(function(i){return A[i]<0}).length;
+  if(!ok1){ok1=true;document.getElementById("msg").textContent=(un?un+" unanswered. ":"")+"You cannot come back to this part. Press Finish again to confirm.";return}
+  endPart(false);
+ };
+ upd();
+ clearInterval(iv);
+ iv=setInterval(function(){
+  left--;
+  var tm=document.getElementById("tm");if(tm)tm.textContent=fmt(Math.max(left,0));
+  var b=document.getElementById("bar");if(b)b.classList.toggle("warn",left<=300);
+  if(left<=0)endPart(true);
+ },1000);
 }
 function upd(){
- var n=A.filter(function(x){return x>=0}).length;
- document.getElementById("cnt").textContent=n+"/"+Q.length+" answered";
- document.getElementById("pb").style.width=(100*n/Q.length)+"%";
+ var ids=idxs(part),n=ids.filter(function(i){return A[i]>=0}).length;
+ document.getElementById("cnt").textContent=n+"/"+ids.length;
+ document.getElementById("pb").style.width=(100*n/ids.length)+"%";
 }
-f.addEventListener("change",function(e){
- if(done)return;
- var t=e.target,i=+t.name.slice(1),j=+t.value;A[i]=j;
- for(var k=0;k<4;k++)document.getElementById("l"+i+"_"+k).classList.toggle("sel",k===j);
- upd();
-});
-document.getElementById("sub").onclick=function(){
- if(done)return;
- var un=[];A.forEach(function(a,i){if(a<0)un.push(i+1)});
- var m=document.getElementById("msg");
- if(un.length&&!window._ok){m.textContent="Unanswered: "+un.join(", ")+". Guessing costs nothing on the real exam. Press Submit again to grade anyway.";window._ok=true;return}
- m.textContent="";grade();
-};
+function endPart(auto){
+ clearInterval(iv);
+ if(part<2){
+  var n=part+1;
+  app.innerHTML="<h1>Part "+part+" "+(auto?"time is up":"finished")+"</h1><div class=box><p>Part "+(part+1)+" is locked. Take a breath, then begin Part "+(n+1)+": <b>"+S[n]+"</b>, "+T[n]+" minutes. The clock starts when you press the button.</p><div class=row><button id=go type=button>Start Part "+(n+1)+" ("+T[n]+":00)</button></div></div>";
+  document.getElementById("go").onclick=function(){startPart(n)};
+  return;
+ }
+ grade();
+}
 function grade(){
- done=true;
- var tot=[0,0,0],cor=[0,0,0],wrong=[],str=[];
+ var tot=[0,0,0],cor=[0,0,0],wrong=[],str=[],miss={},h="";
  Q.forEach(function(q,i){
-  var s=q[0];tot[s]++;var a=A[i],ok=a===q[3];if(ok)cor[s]++;else wrong.push(i+1);
+  var s=q[0];tot[s]++;var a=A[i],ok=a===q[4];if(ok)cor[s]++;else{wrong.push(i+1);miss[q[1]]=(miss[q[1]]||0)+1}
   str.push((i+1)+(a<0?"-":L[a]));
-  for(var k=0;k<4;k++){var l=document.getElementById("l"+i+"_"+k);l.classList.remove("sel");l.querySelector("input").disabled=true;
-   if(k===q[3])l.classList.add("right");else if(k===a)l.classList.add("wrong")}
-  var d=document.createElement("div");d.className="ex"+(ok?"":" w");
-  d.innerHTML=(ok?"<b>Correct.</b> ":"<b>"+(a<0?"Skipped":"Your answer: "+L[a])+". Correct: "+L[q[3]]+".</b> ")+q[4];
-  document.getElementById("q"+i).appendChild(d);
  });
  var c=cor[0]+cor[1]+cor[2],pct=Math.round(100*c/Q.length);
  var pr=cor.map(function(x,s){return x/tot[s]});
  var best=pr.indexOf(Math.max.apply(null,pr)),worst=pr.indexOf(Math.min.apply(null,pr));
- var h="<div class=res><p class=big>"+c+" / "+Q.length+" ("+pct+"%)</p>";
- S.forEach(function(n,s){h+="<div>"+n+": "+cor[s]+" / "+tot[s]+"</div>"});
- h+="<p>Strongest: <b>"+S[best]+"</b>. Weakest: <b>"+S[worst]+"</b>.</p>";
- h+="<p>Missed items: "+(wrong.length?wrong.join(", "):"none")+"</p>";
- h+="<p>Copy this and send it to Claude for a full walkthrough and a targeted follow-up test:</p><textarea id=ans rows=3 readonly>"+str.join(", ")+"</textarea>";
- h+="<div class=row><button type=button id=cp>Copy my answers</button><button type=button class=alt id=rt>Retake</button></div></div>";
- var o=document.getElementById("out");o.innerHTML=h;
- document.getElementById("sub").style.display="none";
+ var mt=Object.keys(miss).sort(function(a,b){return miss[b]-miss[a]}).map(function(k){return k+" ("+miss[k]+")"}).join(", ");
+ h+="<h1>Results</h1><div class=res><p class=big>"+c+" / "+Q.length+" ("+pct+"%)</p>";
+ S.forEach(function(n,s){h+="<div>"+n+": "+cor[s]+" / "+tot[s]+" ("+Math.round(100*cor[s]/tot[s])+"%)</div>"});
+ h+="<p>Strongest: <b>"+S[best]+"</b>. Weakest: <b>"+S[worst]+"</b>.</p><p>Topics to review: "+(mt||"none, great job")+"</p>";
+ h+="<p>Copy this and send it to Claude for a walkthrough and a targeted follow-up:</p><textarea id=ans rows=3 readonly>"+str.join(", ")+"</textarea><div class=row><button type=button id=cp>Copy my answers</button><button type=button class=alt id=rt>Retake</button></div></div>";
+ var cur=-1;
+ Q.forEach(function(q,i){
+  if(q[0]!==cur){cur=q[0];h+="<h2>Part "+(cur+1)+": "+S[cur]+"</h2>"}
+  var a=A[i],ok=a===q[4];
+  h+="<div class=q><p><b class=n>"+(i+1)+".</b>"+q[2]+"<span class=tag>"+q[1]+"</span></p>";
+  q[3].forEach(function(o,j){h+="<label class='"+(j===q[4]?"right":(j===a?"wrong":""))+"'><span><b>"+L[j]+".</b> "+o+"</span></label>"});
+  h+="<div class='ex"+(ok?"":" w")+"'>"+(ok?"<b>Correct.</b> ":"<b>"+(a<0?"Skipped":"Your answer: "+L[a])+". Correct: "+L[q[4]]+".</b> ")+q[5]+"</div></div>";
+ });
+ app.innerHTML=h+REFS;window.scrollTo(0,0);
  document.getElementById("cp").onclick=function(){var t=document.getElementById("ans");t.select();try{document.execCommand("copy");this.textContent="Copied"}catch(e){this.textContent="Press and hold to copy"}};
  document.getElementById("rt").onclick=function(){location.reload()};
- o.scrollIntoView();
 }
-build();upd();
+intro();
 </script>
 </body>
 </html>

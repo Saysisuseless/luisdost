@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DOST-SEI Mock Exam 2 (45 items)</title>
+<title>DOST-SEI Mock Exam (45 items)</title>
 <style>
 :root{--bg:#f6f7f4;--card:#fff;--ink:#1c2321;--mute:#5d6a66;--line:#d9dfdb;--acc:#1f5f4a;--accbg:#e3f1ea;--ok:#1d7a3e;--okbg:#e2f4e8;--bad:#b3261e;--badbg:#fbe7e5;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -42,8 +42,8 @@ textarea{width:100%;font:.9rem monospace;padding:8px;border-radius:8px;border:1p
 </head>
 <body>
 <main>
-<h1>DOST-SEI mock exam 2</h1>
-<p class="sub">45 new items, about 50 minutes. Practice set made by Claude, not actual DOST questions. Pick one answer per item, then submit everything at once. Use g = 10 m/s² where needed.</p>
+<h1>DOST-SEI mock exam</h1>
+<p class="sub">45 items, about 50 minutes. Practice set made by Claude, not actual DOST questions. Pick one answer per item, then submit everything at once. Use g = 10 m/s² where needed.</p>
 <div class="bar"><span id="cnt">0/45 answered</span><div class="prog"><i id="pb"></i></div></div>
 <form id="f" onsubmit="return false"></form>
 <div id="msg"></div>
@@ -53,51 +53,51 @@ textarea{width:100%;font:.9rem monospace;padding:8px;border-radius:8px;border:1p
 <script>
 var S=["Creative Reasoning and Language","Science","Mathematics"];
 var Q=[
-[0,"A seesaw is balanced. A 40 kg child sits 3 m from the pivot. How far from the pivot must a 60 kg child sit on the other side?",["1.5 m","2 m","4.5 m","2.5 m"],1,"Balance rule: 40 × 3 = 60 × d, so d = 120 ÷ 60 = 2 m. The heavier child sits closer."],
-[0,"An ideal pulley system with 3 supporting rope segments needs 50 N of effort. What load can it lift?",["50 N","100 N","150 N","200 N"],2,"Load = effort × number of segments = 50 × 3 = 150 N."],
-[0,"Gear A (20 teeth) drives Gear B (10 teeth). If A turns 2 full times, how many times does B turn?",["4","2","1","8"],0,"A passes 20 × 2 = 40 teeth. B has 10 teeth, so 40 ÷ 10 = 4 turns. The smaller gear spins faster."],
-[0,"A battery powers two identical bulbs in series. A third identical bulb is added in series. What happens to the brightness of the first two?",["Brighter","Dimmer","Same","They go out"],1,"More bulbs in series means more resistance, so less current flows and every bulb gets dimmer."],
-[0,"One ball is dropped and another is thrown horizontally from the same height at the same moment (no air resistance). Which hits the ground first?",["The dropped ball","The thrown ball","Cannot be determined","Both at the same time"],3,"Vertical motion is independent of horizontal motion. Both fall with the same acceleration, so they land together."],
-[0,"A 4 × 4 × 4 cube is painted on all outside faces, then cut into 64 small cubes. How many small cubes have exactly one painted face?",["24","8","16","32"],0,"One-face cubes lie in the middle of each face: 2 × 2 = 4 per face. Six faces give 6 × 4 = 24."],
-[0,"You face east, turn left 90°, then turn right 180°, then turn left 90°. Which way do you face now?",["North","South","East","West"],2,"East → left 90° = North → right 180° = South → left 90° (from South) = East."],
-[0,"Complete the series: 3, 6, 11, 18, 27, ___",["36","40","39","38"],3,"Differences are 3, 5, 7, 9, so the next is +11: 27 + 11 = 38."],
-[0,"COMPASS : DIRECTION :: CLOCK : ?",["time","hour","wall","battery"],0,"A compass is a tool that shows direction. A clock is a tool that shows time."],
-[0,"GENEROUS : STINGY :: BRAVE : ?",["heroic","cowardly","strong","bold"],1,"They are opposites: generous/stingy, so brave/cowardly."],
-[0,"Neither the teacher nor the students ___ ready for the test.",["are","is","was","be"],0,"With neither…nor, the verb agrees with the noun closest to it. Students is plural, so are."],
-[0,"She can ___ the piano very well.",["plays","played","playing","play"],3,"After a modal (can, will, may, should), the verb stays in its base form: play."],
-[0,"“The mayor’s speech was so lucid that even the children understood it.” Lucid means:",["confusing","long","angry","clear"],3,"Context clue: even the children understood, so the speech was clear."],
-[0,"Bees pollinate flowers as they gather nectar. This helps plants make seeds and fruits. Without bees, many crops would produce much less food. What is the main idea?",["Bees make honey","Flowers need sunlight","Bees are important to crop production because they pollinate plants","Fruits are healthy"],2,"The main idea covers every sentence: bees pollinate, which helps plants produce food."],
-[0,"Which word is closest in meaning to “abundant”?",["scarce","tiny","plentiful","hidden"],2,"Abundant means existing in large amounts, which is plentiful. Scarce is the opposite."],
-[1,"A 0.5 kg ball moves at 6 m/s. What is its kinetic energy?",["3 J","9 J","18 J","1.5 J"],1,"KE = ½mv² = ½ × 0.5 × 36 = 9 J."],
-[1,"A stone is dropped from rest (no air resistance). How fast is it moving after 3 s?",["3 m/s","15 m/s","90 m/s","30 m/s"],3,"v = gt = 10 × 3 = 30 m/s."],
-[1,"A motor lifts a 50 kg load 6 m in 10 s. What is its power output?",["30 W","3000 W","300 W","500 W"],2,"Work = mgh = 50 × 10 × 6 = 3000 J. Power = work ÷ time = 3000 ÷ 10 = 300 W."],
-[1,"A book rests on a table. Which force is the Newton’s-third-law reaction to Earth’s gravitational pull on the book?",["The table’s push on the book","The book’s gravitational pull on Earth","The table’s weight","Friction"],1,"Action-reaction pairs act on different objects with the same type of force. Earth pulls the book, so the book pulls Earth. (The table’s push is a different force.)"],
-[1,"A constant force of 20 N acts on an object for 3 s. What is the impulse?",["60 N·s","17 N·s","6.7 N·s","23 N·s"],0,"Impulse = force × time = 20 × 3 = 60 N·s."],
-[1,"A gas at constant temperature occupies 6 L at 2 atm. What is its volume at 1 atm?",["3 L","6 L","8 L","12 L"],3,"Boyle’s law: P₁V₁ = P₂V₂, so 2 × 6 = 1 × V, giving V = 12 L."],
-[1,"What is the mass of 0.25 mol of CO₂ (molar mass 44 g/mol)?",["176 g","0.0057 g","11 g","44 g"],2,"mass = moles × molar mass = 0.25 × 44 = 11 g."],
-[1,"How many electrons does a Mg²⁺ ion (atomic number 12) have?",["12","10","14","2"],1,"A neutral Mg atom has 12 electrons. The 2+ charge means it lost 2, leaving 10."],
-[1,"A cell is placed in a hypotonic solution. It will:",["shrink","stay the same","divide","swell"],3,"Hypotonic means less solute outside, so water enters the cell and it swells. (Hippo = fat.)"],
-[1,"A DNA template strand reads 3′–ATG CCA–5′. Which mRNA strand is made?",["5′–UAC GGU–3′","5′–TAC GGT–3′","3′–UAC GGU–5′","5′–AUG CCA–3′"],0,"Pair A→U, T→A, G→C, C→G, and the mRNA runs in the opposite direction. This gives 5′–UAC GGU–3′. RNA has U, never T."],
-[1,"A heterozygous tall plant (Tt) is crossed with a short plant (tt). What fraction of the offspring are short?",["0","1/4","1/2","3/4"],2,"Tt × tt gives Tt, Tt, tt, tt. Two of four are tt, which is 1/2."],
-[1,"Which seismic wave arrives first at a monitoring station?",["S-wave","P-wave","Love wave","Rayleigh wave"],1,"P-waves (primary) are the fastest body waves, so they arrive first."],
-[1,"The ozone layer is found in the:",["mesosphere","troposphere","thermosphere","stratosphere"],3,"Ozone absorbs UV in the stratosphere, which is why temperature rises with height there."],
-[1,"An igneous rock formed from magma that cooled slowly underground, with large crystals, is most likely:",["Basalt","Obsidian","Granite","Pumice"],2,"Slow cooling underground gives large crystals (intrusive igneous): granite. Basalt, obsidian, and pumice cool quickly at the surface."],
-[1,"Which moon phase comes right after the full moon?",["Waxing gibbous","First quarter","New moon","Waning gibbous"],3,"The sequence is new → waxing crescent → first quarter → waxing gibbous → full → waning gibbous → last quarter."],
-[2,"Mia is twice as old as Leo. Five years ago the sum of their ages was 23. How old is Mia now?",["11","22","33","28"],1,"Leo = l, Mia = 2l. (2l − 5) + (l − 5) = 23, so 3l = 33 and l = 11. Mia = 22."],
-[2,"What is the product of the roots of 2x² − 7x + 12 = 0?",["12","−7/2","7/2","6"],3,"Product of roots = c/a = 12/2 = 6. (The sum is −b/a = 7/2.)"],
-[2,"Solve: log₃ x + log₃ (x + 6) = 3",["27","−9","3","9"],2,"x(x + 6) = 3³ = 27, so x² + 6x − 27 = 0, which factors as (x + 9)(x − 3). Reject −9 (log of a negative). x = 3."],
-[2,"A right triangle has legs 8 and 15. What is the sine of the angle opposite the 15 side?",["15/17","8/17","15/8","8/15"],0,"Hypotenuse = √(8² + 15²) = √289 = 17. sin = opposite/hypotenuse = 15/17."],
-[2,"Evaluate: lim (x → −1) (x² − 1)/(x + 1)",["0","−2","2","Does not exist"],1,"Factor: (x − 1)(x + 1)/(x + 1) = x − 1. At x = −1 this is −2."],
-[2,"Evaluate: ∫₁² 3x² dx",["9","3","6","7"],3,"Antiderivative is x³. At 2: 8. At 1: 1. Difference: 7."],
-[2,"Differentiate y = 5x⁴ − 3x.",["5x³ − 3","20x³ − 3","20x⁴ − 3","20x³"],1,"Power rule: bring the exponent down and subtract 1. 5 × 4 = 20, giving 20x³, and the derivative of 3x is 3."],
-[2,"What is the sum of the interior angles of a decagon (10 sides)?",["1260°","1800°","1440°","1080°"],2,"(n − 2) × 180 = 8 × 180 = 1440°."],
-[2,"An inscribed angle intercepts an arc of 100°. What is the measure of the inscribed angle?",["50°","100°","200°","25°"],0,"An inscribed angle is half its intercepted arc: 100 ÷ 2 = 50°."],
-[2,"What is the volume of a cone with radius 3 and height 4? (V = ⅓πr²h)",["36π","24π","48π","12π"],3,"V = ⅓ × π × 9 × 4 = 12π."],
-[2,"What is sin 60° × cos 30°?",["√3/4","1/2","1","3/4"],3,"sin 60° = √3/2 and cos 30° = √3/2. Product: (√3 × √3)/4 = 3/4."],
-[2,"The mean of 4 numbers is 15. A fifth number, 20, is added. What is the new mean?",["16","15","17.5","18"],0,"The sum of the 4 numbers is 4 × 15 = 60. New sum = 80. New mean = 80 ÷ 5 = 16."],
-[2,"Two cards are drawn one after the other without replacement from 4 red and 6 blue cards. What is the probability that both are blue?",["3/5","1/3","9/25","1/9"],1,"6/10 × 5/9 = 30/90 = 1/3. The second draw has one fewer blue card and one fewer card in total."],
-[2,"In how many ways can a committee of 4 students be chosen from 6 students?",["15","24","360","30"],0,"Order doesn’t matter, so use a combination: C(6,4) = 6!/(4! × 2!) = 15."],
-[2,"A can paint a fence in 10 hours and B in 15 hours. How long will they take working together?",["12.5 h","5 h","25 h","6 h"],3,"Rates add: 1/10 + 1/15 = 3/30 + 2/30 = 5/30 = 1/6 fence per hour, so 6 hours."]
+[0,"A 1.5 m crowbar has its fulcrum 0.3 m from a 600 N load. What force at the far end lifts it?",["100 N","150 N","200 N","300 N"],1,"Effort arm = 1.5 − 0.3 = 1.2 m. Load × load arm = effort × effort arm: 600 × 0.3 = F × 1.2, so F = 150 N."],
+[0,"An ideal pulley system with 4 rope segments supports a 240 N load. What is the effort force?",["30 N","120 N","240 N","60 N"],3,"Ideal mechanical advantage = number of supporting segments = 4. Effort = 240 ÷ 4 = 60 N."],
+[0,"Two identical bulbs are in series with a battery. If one burns out (open circuit), what happens to the other?",["It also goes out","Same brightness","Brighter","Dimmer but lit"],0,"Series means one path. A break stops current everywhere."],
+[0,"Two identical bulbs are in parallel with an ideal battery. If one burns out, the other:",["Goes out","Gets dimmer","Stays the same brightness","Gets brighter"],2,"Each parallel branch gets the full battery voltage independently, so the other bulb is unchanged."],
+[0,"Three meshed gears A, B, C are in a row. A turns clockwise. C turns:",["Clockwise","Counterclockwise","Not at all","Cannot be determined"],0,"Meshed gears alternate direction: A clockwise, B counterclockwise, C clockwise."],
+[0,"A ball hangs from a string on the ceiling of a bus. The bus accelerates forward. Relative to the bus, the ball swings:",["Forward","Backward toward the rear","Stays vertical","Sideways"],1,"Inertia: the ball resists the change in motion, so it lags toward the rear."],
+[0,"How many faces, edges, and vertices does a triangular prism have (in that order)?",["4, 6, 4","6, 9, 5","5, 8, 5","5, 9, 6"],3,"2 triangles + 3 rectangles = 5 faces. Edges: 3 + 3 + 3 = 9. Vertices: 3 + 3 = 6."],
+[0,"Complete the series: 2, 6, 12, 20, 30, ___",["36","40","42","44"],2,"Differences are 4, 6, 8, 10, so the next is +12: 30 + 12 = 42. (Also n(n+1): 6 × 7.)"],
+[0,"A square paper is folded in half twice (4 layers). One hole is punched through all layers, away from the folds. How many holes show when it is unfolded?",["4","1","2","8"],0,"Each layer gets one hole, so 4 layers give 4 holes."],
+[0,"You face north, turn 90° right, then 180°, then 90° left. Which way do you face now?",["North","West","South","East"],2,"North → right 90° = East → turn 180° = West → left 90° (from West) = South."],
+[0,"THERMOMETER : TEMPERATURE :: ODOMETER : ?",["speed","distance","fuel","time"],1,"A thermometer measures temperature. An odometer measures distance traveled (a speedometer measures speed)."],
+[0,"PETAL : FLOWER :: PAGE : ?",["ink","word","author","book"],3,"Part to whole: a petal is part of a flower, a page is part of a book."],
+[0,"Did Maria really ___ the last slice of pizza?",["eat","ate","eaten","eats"],0,"After the auxiliary did, the main verb stays in base form: eat."],
+[0,"“The scientist was meticulous, checking every measurement twice.” Meticulous means:",["careless","very careful","quick","proud"],1,"The context clue (checking twice) shows careful attention to detail."],
+[0,"Which sentence has correct subject-verb agreement?",["The group of students are late.","Each of the boys have a bike.","Everyone in the class has finished.","Neither of them are ready."],2,"Everyone, each, and neither are singular and take singular verbs: has, has, is. Only C is correct."],
+[1,"A 1000 kg car speeds up uniformly from rest to 20 m/s in 10 s. What is the net force?",["200 N","20,000 N","2,000 N","1,000 N"],2,"a = 20 ÷ 10 = 2 m/s². F = ma = 1000 × 2 = 2,000 N."],
+[1,"How much work is done lifting a 5 kg object 4 m at constant speed?",["20 J","200 J","50 J","2,000 J"],1,"W = mgh = 5 × 10 × 4 = 200 J."],
+[1,"At the highest point of a projectile’s path (no air resistance):",["vertical velocity = 0 and acceleration = 0","the velocity is zero","vertical velocity = 0 and acceleration = 10 m/s² downward","horizontal velocity = 0 and acceleration = 10 m/s² downward"],2,"Gravity never stops acting, so a = g downward. Only the vertical velocity is zero; horizontal velocity stays constant."],
+[1,"If a moving object doubles its speed, its kinetic energy becomes:",["4 times","2 times","8 times","unchanged"],0,"KE = ½mv². Speed is squared, so 2² = 4 times."],
+[1,"A 2 kg cart moving at 3 m/s hits a 1 kg cart at rest and they stick together. Their speed afterward is:",["1 m/s","1.5 m/s","3 m/s","2 m/s"],3,"Momentum is conserved: 2 × 3 = (2 + 1)v, so v = 6 ÷ 3 = 2 m/s."],
+[1,"How many moles are in 36 g of water (H₂O, 18 g/mol)?",["0.5","2","1","4"],1,"moles = mass ÷ molar mass = 36 ÷ 18 = 2."],
+[1,"A chlorine atom has atomic number 17 and mass number 35. How many neutrons does it have?",["17","35","52","18"],3,"Neutrons = mass number − atomic number = 35 − 17 = 18."],
+[1,"Carbon-14 has a half-life of 5730 years. How much of a 20 g sample remains after 11,460 years?",["10 g","7.5 g","5 g","2.5 g"],2,"11,460 ÷ 5730 = 2 half-lives. 20 → 10 → 5 g."],
+[1,"0.5 mol of NaCl is dissolved to make 250 mL of solution. What is the molarity?",["0.5 M","1.0 M","125 M","2.0 M"],3,"250 mL = 0.25 L. M = 0.5 ÷ 0.25 = 2.0 M."],
+[1,"A red blood cell is placed in a hypertonic solution. It will:",["Swell and burst","Shrink","Stay the same","Divide"],1,"Hypertonic means more solute outside, so water leaves the cell and it shrinks."],
+[1,"In a cross of Aa × Aa, what is the probability of an offspring with genotype aa?",["0","1/2","3/4","1/4"],3,"Punnett square gives AA, Aa, Aa, aa, so aa = 1/4."],
+[1,"A cell with 12 chromosomes undergoes mitosis. How many chromosomes does each daughter cell have?",["6","24","12","3"],2,"Mitosis makes identical cells, so the chromosome number stays 12. (Meiosis would halve it.)"],
+[1,"The Mid-Atlantic Ridge is an example of a ______ plate boundary.",["divergent","convergent","transform","subduction"],0,"Mid-ocean ridges form where plates move apart and new crust is made: divergent."],
+[1,"Marble forms when heat and pressure change which rock?",["Sandstone","Shale","Granite","Limestone"],3,"Limestone becomes marble. (Shale becomes slate, sandstone becomes quartzite.)"],
+[1,"Our Sun will end its life as a:",["black hole","white dwarf","supernova","neutron star"],1,"The Sun is too small for a supernova. It becomes a red giant, then a white dwarf."],
+[2,"Ana is 3 times as old as Ben. In 6 years, the sum of their ages will be 36. How old is Ana now?",["6","12","24","18"],3,"Let Ben = b, Ana = 3b. (3b + 6) + (b + 6) = 36, so 4b = 24, b = 6. Ana = 18."],
+[2,"What is the sum of the roots of 2x² − 10x + 8 = 0?",["4","5","−5","10"],1,"Sum of roots = −b/a = 10/2 = 5."],
+[2,"Solve: log₂ x + log₂ (x − 2) = 3",["−2","2","8","4"],3,"x(x − 2) = 2³ = 8, so x² − 2x − 8 = 0, giving x = 4 or −2. Reject −2 (log of a negative). x = 4."],
+[2,"An arithmetic sequence has a₁ = 5 and d = 3. What is the 20th term?",["57","62","60","65"],1,"aₙ = a₁ + (n − 1)d = 5 + 19 × 3 = 62."],
+[2,"Pipe A fills a tank in 6 hours and Pipe B fills it in 3 hours. How long will both take together?",["1.5 h","3 h","2 h","4.5 h"],2,"Rates add: 1/6 + 1/3 = 1/2 tank per hour, so 2 hours."],
+[2,"What is the sum of the interior angles of a hexagon?",["540°","720°","900°","1080°"],1,"(n − 2) × 180 = 4 × 180 = 720°."],
+[2,"Two chords intersect inside a circle, forming an angle that intercepts arcs of 80° and 40°. What is the angle?",["40°","120°","60°","30°"],2,"Angle inside a circle = ½(sum of intercepted arcs) = ½(80 + 40) = 60°."],
+[2,"What is the volume of a cylinder with radius 3 and height 10?",["30π","60π","270π","90π"],3,"V = πr²h = π × 9 × 10 = 90π."],
+[2,"What is sin 30° + cos 60°?",["1/2","1","√3/2","√3"],1,"sin 30° = 1/2 and cos 60° = 1/2, so the sum is 1."],
+[2,"In a right triangle, the side opposite θ is 5 and the hypotenuse is 13. What is cos θ?",["5/12","5/13","12/13","13/12"],2,"Adjacent = √(13² − 5²) = 12. cos θ = adjacent/hypotenuse = 12/13."],
+[2,"What is the median of 3, 9, 5, 7, 11, 13?",["7","9","8","8.5"],2,"Sorted: 3, 5, 7, 9, 11, 13. Six values, so average the middle two: (7 + 9)/2 = 8."],
+[2,"Two fair dice are rolled. What is the probability that the sum is 7?",["1/12","1/6","1/9","1/4"],1,"Six ways (1-6, 2-5, 3-4, 4-3, 5-2, 6-1) out of 36 = 1/6."],
+[2,"How many 3-digit codes can be made from the digits 1–5 with no repeated digit?",["10","15","125","60"],3,"Order matters (permutation): 5 × 4 × 3 = 60."],
+[2,"Evaluate: lim (x → 3) (x² − 9)/(x − 3)",["6","0","3","Does not exist"],0,"Factor: (x − 3)(x + 3)/(x − 3) = x + 3, which is 6 at x = 3."],
+[2,"Evaluate: ∫₀² 4x³ dx",["8","32","16","4"],2,"Antiderivative is x⁴. At 2: 16, at 0: 0. Answer 16."]
 ];
 var L="ABCD",A=new Array(Q.length).fill(-1),done=false;
 var f=document.getElementById("f");
